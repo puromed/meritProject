@@ -1,5 +1,4 @@
 
-```markdown
 # Student Merit System
 
 A web-based merit tracking system built with CakePHP 5.x for managing student achievements and eligibility.
