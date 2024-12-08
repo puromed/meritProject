@@ -1,53 +1,122 @@
-# CakePHP Application Skeleton
 
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+```markdown
+# Student Merit System
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 5.x.
+A web-based merit tracking system built with CakePHP 5.x for managing student achievements and eligibility.
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+## Table of Contents
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Current Status](#current-status)
+- [Note For Teammate](#first-time-only)
 
-## Installation
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+## Project Structure
 
-If Composer is installed globally, run
+### Key Components
+- 
 
+UsersController.php
+
+ - Authentication logic
+- 
+
+PagesController.php
+
+ - Dashboard handling
+- 
+
+Pages
+
+ - Role-based dashboard views
+- 
+
+Users
+
+ - Login and user management views
+
+### Features
+- User Authentication
+  - Admin/User roles
+  - Secure login/logout
+  - Role-based access control
+- Dashboard System
+  - Admin dashboard with statistics
+  - User dashboard with quick actions
+- Student Merit Management
+  - Track student achievements
+  - Merit point system
+  - Activity logging
+
+## Development
+
+Built using:
+- CakePHP 5.x
+- Bootstrap 5.x
+- MySQL/MariaDB
+
+## Current Status
+- Authentication implemented ✓
+- Role-based dashboards ✓
+- Basic CRUD operations ✓
+- Ready for frontend enhancements
+
+## Note For Teammates
+
+### First Time Setup
+1. Download and install Git from: https://git-scm.com/downloads
+
+2. Open Command Prompt (cmd) and set up your GitHub identity:
 ```bash
-composer create-project --prefer-dist cakephp/app
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
-
+3. Get the project files:
+- Create a new folder where you want the project
+-  Open Command Prompt in that folder
+- Copy and paste this command:
+### First Time Only
 ```bash
-composer create-project --prefer-dist cakephp/app myapp
+git clone https://github.com/puromed/meritProject.git
 ```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
-
+4. Set up the project
+- Open Laragon
+- Open phpMyAdmin and create a new database named 'emerit'
+- Go to project folder, open the terminal and copy this
 ```bash
-bin/cake server -p 8765
+copy config\app_local.example.php config\app_local.php
 ```
+- Edit app_local.php and update these settings:
+```php
+<?php
+'username' => 'root'
+'password' => ''
+'database' => 'emerit'
+```
+5. Install project
+```bash
+composer install
+bin/cake migrations migrate
+bin/cake cache clear_all
+```
+### Test the website
+1. Go to https://localhost/meritProject
+2. Login with:
+- Admin: test123@localhost.com / test123
+- User: cuba@localhost.com / cuba
 
-Then visit `http://localhost:8765` to see the welcome page.
+### Making Changes
+After cloning the repository, do this after each update to the folder, clone is done once to get the folder, pull is getting the latest update from the folder.
 
-## Update
-
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
-
-## Configuration
-
-Read and edit the environment specific `config/app_local.php` and set up the
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
-
-## Layout
-
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+1. Before starting work, open the command prompt/powershell and run in the folder
+```bash
+git pull origin main
+```
+2. After Making Changes (one at a time):
+```bash
+git add.
+git commit -m "Write comment what has been done"
+git push
+```
