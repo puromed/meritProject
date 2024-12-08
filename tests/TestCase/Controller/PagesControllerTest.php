@@ -28,6 +28,23 @@ class PagesControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
+    public $fixtures = [
+        'app.Users',
+        'app.Activities'
+    ];
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->confiqRequest([
+            'environment' => [
+                'AUTH_TYPE' => 'Basic',
+                'PHP_AUTH_USER' => 'test123@localhost.com',
+                'PHP_AUTH_PW' => 'test123',
+            ]
+        ]);
+    }
+
     /**
      * testDisplay method
      *
@@ -42,6 +59,7 @@ class PagesControllerTest extends TestCase
         $this->assertResponseContains('<html>');
     }
 
+   
     /**
      * Test that missing template renders 404 page in production
      *
