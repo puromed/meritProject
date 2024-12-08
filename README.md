@@ -75,7 +75,6 @@ git config --global user.email "your.email@example.com"
 - Create a new folder where you want the project
 -  Open Command Prompt in that folder
 - Copy and paste this command:
-### First Time Only
 ```bash
 git clone https://github.com/puromed/meritProject.git
 ```
