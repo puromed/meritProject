@@ -116,7 +116,7 @@ class Initial extends BaseMigration
                 'signed' => true,
             ])
             ->addColumn('Date_Received', 'date', [
-                'default' => 'curdate()',
+                'default' => 'CURRENT_DATE',
                 'limit' => null,
                 'null' => true,
             ])
