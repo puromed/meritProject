@@ -76,7 +76,6 @@ class Initial extends BaseMigration
                 'signed' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
