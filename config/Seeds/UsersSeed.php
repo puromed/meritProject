@@ -21,6 +21,8 @@ class UsersSeed extends AbstractSeed
      */
     public function run()
     {
+        $hasher = new DefaultPasswordHasher();
+
         $data = [
             [
                 'email' => 'test123@localhost.com',
@@ -37,8 +39,10 @@ class UsersSeed extends AbstractSeed
                 'modified' => date('Y-m-d H:i:s'),
             ],
         ];
+
         $table = $this->table('users');
-        $table->truncate(); //clear existing data before inserting
-        $table->insert($data)->save();
+        if (!$table->hasData()) {
+            $table->insert($data)->save();
+        }
     }
 }
