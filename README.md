@@ -96,6 +96,7 @@ copy config\app_local.example.php config\app_local.php
 5. Install project
 ```bash
 composer install
+composer update
 bin/cake migrations migrate
 bin/cake migrations seed 
 bin/cake cache clear_all
@@ -117,5 +118,5 @@ git pull origin main
 ```bash
 git add.
 git commit -m "Write comment what has been done"
-git push
+git push origin changes-updated
 ```
