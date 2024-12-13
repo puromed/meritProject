@@ -118,5 +118,5 @@ git pull origin main
 ```bash
 git add.
 git commit -m "Write comment what has been done"
-git push origin changes-updated
+git push origin main:changes-updated
 ```
