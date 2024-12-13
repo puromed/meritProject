@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use Migrations\AbstractSeed;
-use Cake\Auth\DefaultPasswordHasher;
+use Cake\Auth\DefaultPasswordHasher as AuthDefaultPasswordHasher;
 
 /**
  * Users seed.
@@ -21,7 +21,7 @@ class UsersSeed extends AbstractSeed
      */
     public function run(): void
     {
-        $hasher = new DefaultPasswordHasher();
+         $hasher = new AuthDefaultPasswordHasher();
 
         $data = [
             [
