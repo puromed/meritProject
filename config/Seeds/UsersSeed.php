@@ -1,48 +1,45 @@
 <?php
 declare(strict_types=1);
 
-use Migrations\AbstractSeed;
-use Cake\Auth\DefaultPasswordHasher;
+use Migrations\BaseSeed;
 
 /**
  * Users seed.
  */
-class UsersSeed extends AbstractSeed
+class UsersSeed extends BaseSeed
 {
     /**
      * Run Method.
      *
      * Write your database seeder using this method.
      *
-     * More information on writing seeders is available here:
-     * https://book.cakephp.org/phinx/0/en/seeding.html
+     * More information on writing seeds is available here:
+     * https://book.cakephp.org/migrations/4/en/seeding.html
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $hasher = new DefaultPasswordHasher();
-
         $data = [
             [
+                'id' => 3,
                 'email' => 'test123@localhost.com',
-                'password' => $hasher->hash('test123'),
+                'password' => '$2y$10$jfaNnIrff1Abi8L182WxHOA.iZbfl9.vN2Y7ne2yiL.aLEhkruGF.',
                 'role' => 'admin',
-                'created' => date('Y-m-d H:i:s'),
-                'modified' => date('Y-m-d H:i:s'),
+                'created' => '2024-12-11 11:35:51',
+                'modified' => '2024-12-11 11:35:51',
             ],
             [
+                'id' => 4,
                 'email' => 'cuba@localhost.com',
-                'password' => $hasher->hash('cuba'),
+                'password' => '$2y$10$3q7/CkArQvrAgQ0kvZzpDuJOujxZiOyzE52JXD3br6JJJMg5pfMfW',
                 'role' => 'user',
-                'created' => date('Y-m-d H:i:s'),
-                'modified' => date('Y-m-d H:i:s'),
+                'created' => '2024-12-11 11:36:14',
+                'modified' => '2024-12-11 11:36:14',
             ],
         ];
 
         $table = $this->table('users');
-        if (!$table->hasData()) {
-            $table->insert($data)->save();
-        }
+        $table->insert($data)->save();
     }
 }
