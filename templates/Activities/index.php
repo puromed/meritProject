@@ -4,6 +4,7 @@
  * @var iterable<\App\Model\Entity\Activity> $activities
  */
 ?>
+<h1>Test</h1>
 <div class="activities index content">
     <?= $this->Html->link(__('New Activity'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Activities') ?></h3>
