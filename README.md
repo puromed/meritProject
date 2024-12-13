@@ -97,7 +97,7 @@ copy config\app_local.example.php config\app_local.php
 ```bash
 composer install
 bin/cake migrations migrate
-bin/cake migrations seed --seed UsersSeed
+bin/cake migrations seed 
 bin/cake cache clear_all
 ```
 ### Test the website
