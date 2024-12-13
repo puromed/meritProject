@@ -20,6 +20,7 @@ class UsersSeed extends BaseSeed
      */
     public function run(): void
     {
+
         $data = [
             [
                 'id' => 3,
