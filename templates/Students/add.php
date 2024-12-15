@@ -4,6 +4,12 @@
  * @var \App\Model\Entity\Student $student
  */
 ?>
+<?php 
+    echo $this->Html->css("studentsAdd.css") 
+?> 
+<?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+?>
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">

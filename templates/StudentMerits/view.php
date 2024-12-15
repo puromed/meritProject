@@ -4,6 +4,14 @@
  * @var \App\Model\Entity\StudentMerit $studentMerit
  */
 ?>
+<!-- css file -->
+<?php 
+    echo $this->Html->css("studentMeritsView.css") 
+?> 
+<!-- bs css -->
+<?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+?>
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">
