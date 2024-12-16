@@ -1,0 +1,15 @@
+body {
+    background: linear-gradient(135deg, #adbbda, #ede8f5);
+}
+
+.card {
+    background: #ede8f5;
+}
+
+.darkBlue-text {
+    color: #3d52a0;
+}
+
+.centerText {
+    text-align: center;
+}

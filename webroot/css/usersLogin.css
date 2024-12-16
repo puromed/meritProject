@@ -1,0 +1,21 @@
+body {
+    background: linear-gradient(135deg, #adbbda, #ede8f5);
+}
+
+.darkBlue-text {
+    color: #3d52a0;
+}
+
+h3:hover {
+    cursor: default;
+    letter-spacing: 3px;
+}
+
+.form-floating {
+    background: linear-gradient(180deg, #ede8f5, #adbbda);
+}
+
+/* footer */
+footer {
+    background: #adbbda;
+}

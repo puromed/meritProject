@@ -1,0 +1,26 @@
+body {
+    background: linear-gradient(135deg, #adbbda, #ede8f5);
+}
+
+a {
+    text-decoration: none;
+}
+
+.darkBlue-text {
+    color: #3d52a0;
+}
+
+.white-text {
+    color: #ede8f5;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.list-group-item {
+    font-style: italic;
+}
+
+footer {
+    background-color: #3d52a0;}

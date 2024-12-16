@@ -4,6 +4,15 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
+
+<!-- css file -->
+<?php 
+    echo $this->Html->css("usersIndex.css") 
+?> 
+<!-- bs css -->
+<?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+?>
+
 <div class="users index content">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">

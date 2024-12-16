@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #adbbda, #ede8f5);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h3 {
+    font-size: 28px;
+    text-align: start;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Container */
+.studentMerits.index.content {
+    background: #adbbda;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 100%;
+}
+
+/* Buttons */
+.button {
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+    float: right;
+    margin-bottom: 15px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Table Styles */
+.table-responsive {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table thead {
+    background-color: #adbbda;
+    color: #0056b3;
+}
+
+table th,
+table td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Action Links */
+.actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.actions a:hover {
+    color: #0056b3;
+}
+
+/* Paginator */
+.paginator {
+    text-align: center;
+    margin-top: 20px;
+    cursor: default;
+}
+
+.paginator .pagination {
+    display: inline-flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+}
+
+.paginator .pagination li {
+    display: inline;
+}
+
+.paginator .pagination a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.paginator .pagination a:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.paginator p {
+    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+}

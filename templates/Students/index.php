@@ -4,10 +4,17 @@
  * @var iterable<\App\Model\Entity\Student> $students
  */
 ?>
-<div class="students index content">
-    <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+<!-- external css -->
+<?php 
+    echo $this->Html->css("studentsIndex.css") 
+?> 
+<?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+?>
+
+<div class="students index content rounded-5">
+    <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'button float-right rounded-4']) ?>
     <h3><?= __('Students') ?></h3>
-    <div class="table-responsive">
+    <div class="table-responsive rounded-4">
         <table>
             <thead>
                 <tr>
