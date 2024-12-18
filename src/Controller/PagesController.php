@@ -90,4 +90,44 @@ class PagesController extends AppController
     
     return $this->render('user_dashboard');
     }
+
+    //admin dashboard
+    public function adminDashboard()
+{
+    // Initialize default values
+    $studentCount = 0;
+    $meritCount = 0;
+    $activityCount = 0;
+    $pendingRequests = 0;
+    $recentActivities = [];
+
+    $this->loadModel('Students');
+    $this->loadModel('Activities');
+    $this->loadModel('StudentMerits');
+    $this->loadModel('MeritLetterRequests');
+
+    try {
+        // Dashboard statistics
+        $studentCount = $this->Students->find()->count() ?? 0;
+        $meritCount = $this->StudentMerits->find()->count() ?? 0;
+        $activityCount = $this->Activities->find()->count() ?? 0;
+        $pendingRequests = $this->MeritLetterRequests->find()
+            ->where(['status' => 'pending'])
+            ->count() ?? 0;
+
+        // Recent activities
+        $recentActivities = $this->Activities->find()
+            ->order(['created' => 'DESC'])
+            ->limit(5)
+            ->all()
+            ->toArray();
+
+    } catch (\Exception $e) {
+        $this->Flash->error('Error loading dashboard data.');
+        $this->log($e->getMessage());
+    }
+
+    $this->set(compact('studentCount', 'meritCount', 'activityCount', 
+                    'pendingRequests', 'recentActivities'));
+}
 }

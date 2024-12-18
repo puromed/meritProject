@@ -1,13 +1,13 @@
 /* Milligram overrides */
-:root {
+/* :root { */
     /* The following are official CakePHP colors */
-    --color-cakephp-red: #d33c43;
+    /* --color-cakephp-red: #d33c43;
     --color-cakephp-gray: #404041;
     --color-cakephp-blue: #2f85ae;
-    --color-cakephp-lightblue: #34bdd7;
+    --color-cakephp-lightblue: #34bdd7; */
 
     /* These are additional colors */
-    --color-lightgray: #606c76;
+    /* --color-lightgray: #606c76;
     --color-white: #fff;
 
     --color-main-bg: #f5f7fa;
@@ -30,26 +30,26 @@
     --color-message-info-bg: #eff8ff;
     --color-message-info-text: #2779bd;
     --color-message-info-border: #6cb2eb;
-}
+} */
 
-.button, button, input[type='button'], input[type='reset'], input[type='submit'] {
+/* .button, button, input[type='button'], input[type='reset'], input[type='submit'] {
     background-color: var(--color-cakephp-red);
     border-color: var(--color-cakephp-red);
-}
+} */
 
-body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+/* body { */
+    /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 400;
-    background: var(--color-main-bg);
-}
+    background: var(--color-main-bg); */
+/* } */
 
-.top-nav-links,
+/* .top-nav-links,
 .side-nav,
 h1, h2, h3, h4, h5, h6 {
     font-family: "Raleway", sans-serif;
-}
+} */
 
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     color: var(--color-headings);
 }
@@ -78,26 +78,26 @@ th a,
 .actions a:hover,
 .actions a:focus {
     color: var(--color-links-active);
-}
+} */
 
 /* Utility */
-.table-responsive {
+/* .table-responsive {
     display: block;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-}
+} */
 
 /* Main */
-.content {
+/* .content {
     padding: 2rem;
     background: var(--color-white);
-    border-radius: 0.4rem;
+    border-radius: 0.4rem; */
     /* Thanks Stripe */
-    box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.1),
+    /* box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.1),
         0 3px 6px 0 rgba(0, 0, 0, 0.07);
-}
-.content form {
+} */
+/* .content form {
     margin: 0;
 }
 .actions a {
@@ -109,10 +109,10 @@ th a,
 }
 th {
     white-space: nowrap;
-}
+} */
 
 /* Nav bar */
-.top-nav {
+/* .top-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -137,18 +137,18 @@ th {
 .side-nav-item {
     display: block;
     padding: 0.5rem 0;
-}
+} */
 
 /* View action */
-.view.content .text {
+/* .view.content .text {
     margin-top: 1.2rem;
 }
 .related {
     margin-top: 2rem;
-}
+} */
 
 /* Flash messages */
-.message {
+/* .message {
     padding: .5rem 1rem;
     background: var(--color-message-info-bg);
     color: var(--color-message-info-text);
@@ -176,10 +176,10 @@ th {
     background: var(--color-message-error-bg);
     color: var(--color-message-error-text);
     border-color: var(--color-message-error-border);
-}
+} */
 
 /* Forms */
-.input.radio,
+/* .input.radio,
 .input.checkbox,
 .input.multicheckbox {
     margin-bottom: 2.0rem;
@@ -204,10 +204,10 @@ th {
 input[type='color'] {
     max-width: 4rem;
     padding: 0.3rem .5rem 0.3rem;
-}
+} */
 
 /* Paginator */
-.paginator {
+/* .paginator {
     text-align: right;
 }
 .paginator p {
@@ -260,20 +260,20 @@ input[type='color'] {
 }
 .desc:after {
     content: " \2191";
-}
+} */
 
 /* Error in non debug mode */
-.error-container {
+/* .error-container {
     align-items: center;
     display: flex;
     flex-direction: column;
     height: 100vh;
     justify-content: center;
-}
+} */
 
-@media screen and (max-width: 640px) {
+/* @media screen and (max-width: 640px) { */
     /* Fix milligram not having a responsive column system */
-    .row .column[class*='column-'] {
+    /* .row .column[class*='column-'] {
         flex: 0 0 100%;
         max-width: 100%
     }
@@ -295,5 +295,5 @@ input[type='color'] {
     }
     .desc:after {
         content: " \2190";
-    }
-}
+    } */
+/* } */
