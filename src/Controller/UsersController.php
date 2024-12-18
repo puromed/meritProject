@@ -25,7 +25,7 @@ class UsersController extends AppController
 {
     parent::beforeFilter($event);
 
-    $this->Authentication->allowUnauthenticated(['login', 'add']);
+    $this->Authentication->allowUnauthenticated(['login', 'add','landing']);
 }
 
 
@@ -42,13 +42,21 @@ class UsersController extends AppController
         $this->set(compact('users'));
     }
 
+    public function landing()
+    {
+        $query = $this->Users->find();
+        $users = $this->paginate($query);
+
+        $this->set(compact('users'));
+    }
+
     //authentication plugin
     public function login()
 {
     $result = $this->Authentication->getResult();
     // If the user is logged in send them away.
     if ($result->isValid()) {
-        $target = $this->Authentication->getLoginRedirect() ?? ['controller' => 'Pages', 'action' => 'dashboard'];
+        $target = $this->Authentication->getLoginRedirect() ?? ['controller' => 'Pages', 'action' => 'admin_dashboard'];
         return $this->redirect($target);
     }
     if ($this->request->is('post')) {
