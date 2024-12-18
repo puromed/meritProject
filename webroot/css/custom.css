@@ -24,6 +24,7 @@ body {
 } */
 
 .box {
-    /* background: linear-gradient(135deg, #fef5ea , rgb(117, 205, 234)); */
+    background: linear-gradient(135deg, #fef5ea , rgb(117, 205, 234)); //test
     transform: translateX(100%);
 }
+
