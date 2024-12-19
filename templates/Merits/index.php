@@ -5,9 +5,9 @@
  */
 ?>
 <!-- css file -->
-<?php 
+ <?php 
     echo $this->Html->css("meritsIndex.css") 
-?> 
+?>  
 <!-- bs css -->
 <?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 ?>
