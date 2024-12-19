@@ -31,10 +31,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css") ?>
     
     <!-- custom css -->
-    <?= $this->Html->css("custom.css") ?>
-
-    <!--custom css-->
-    <?= $this->Html->css("custom.css") ?>
+    <!-- <?= $this->Html->css("custom.css") ?> -->
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -72,12 +69,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </a>
                     <ul class="dropdown-menu">
                         <?= $this->Html->link('User Management', ['controller' => 'Users', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('System Settings', ['controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Activity Logs', ['controller' => 'Logs', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Reports', ['controller' => 'Reports', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <div class="dropdown-divider"></div>
-                        <?= $this->Html->link('Merit Letter Requests', ['controller' => 'MeritLetterRequests', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Admin Profile', ['controller' => 'Users', 'action' => 'profile'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Merit Letter Requests', ['controller' => 'MeritLetter', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
                     </ul>
                 </li>
             <?php else: ?>
@@ -138,7 +130,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?= $this->fetch('content') ?>
         </div>
     </main>
-    <footer>
+    <footer class = "site-footer bg-dark text-light mt-5">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-6">
+                    <p class="mb-0 fs-6">&copy; <?= date('Y') ?> Emerit. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0 fs-6">Powered by CakePHP</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!--bootstrap js-->
