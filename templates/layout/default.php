@@ -27,7 +27,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->meta('icon') ?>
 
     <!--bootstrap css-->
+
     <?= $this->Html->css("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css") ?>
+    
+    <!-- custom css -->
+    <?= $this->Html->css("custom.css") ?>
 
     <!--custom css-->
     <?= $this->Html->css("custom.css") ?>

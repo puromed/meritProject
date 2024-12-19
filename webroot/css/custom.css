@@ -1,0 +1,30 @@
+
+body {
+    background: #fef5ea;
+}
+
+.center {
+    text-align: center;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: rgb(117, 205, 234);
+}
+
+.green {
+    color: greenyellow;
+}
+
+/* .btn1 {
+    margin-left: 100px;
+} */
+
+.box {
+    background: linear-gradient(135deg, #fef5ea , rgb(117, 205, 234)); //test
+    transform: translateX(100%);
+}
+
