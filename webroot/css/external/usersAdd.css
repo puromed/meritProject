@@ -1,0 +1,246 @@
+/* Enhanced Card Styling */
+.card.rounded-4 {
+    border-radius: 1.25rem !important;
+    /* Slightly more rounded */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    /* Softer, more modern shadow */
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    /* Subtle gradient background */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Light border */
+    overflow: hidden;
+    /* To contain the header's rounded corners */
+}
+
+.card-header {
+    background: linear-gradient(to right, #0d6efd, #3898ff);
+    /* Gradient header */
+    color: #fff;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    text-align: center;
+    padding: 1.25rem 2rem;
+    /* Increased padding */
+    position: relative;
+    /* For potential pseudo-elements */
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    /* Subtle highlight */
+}
+
+.card-header h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    /* Slightly larger title */
+    font-weight: 700;
+    /* Bolder title */
+}
+
+.card-body {
+    padding: 2.5rem;
+    /* Increased padding */
+}
+
+/* Multi-Step Form Styles */
+.form-step {
+    display: none;
+    /* Hide all steps initially */
+}
+
+.form-step.active {
+    display: block;
+    /* Show the active step */
+    animation: slideIn 0.5s ease-in-out;
+    /* Add a slide-in animation */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Progress Bar */
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.progress-step {
+    width: 30%;
+    /* Adjust based on the number of steps */
+    text-align: center;
+    position: relative;
+}
+
+.progress-step::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #ced4da;
+    /* Inactive step color */
+    z-index: -1;
+}
+
+.progress-step::after {
+    content: attr(data-step);
+    /* Use data-step attribute for step number */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #ced4da;
+    /* Inactive step color */
+    color: #fff;
+    z-index: 1;
+}
+
+.progress-step.active::before {
+    background-color: #0d6efd;
+    /* Active step color */
+}
+
+.progress-step.active::after {
+    background-color: #0d6efd;
+}
+
+.progress-step.completed::before {
+    background-color: #28a745;
+    /* Completed step color */
+}
+
+.progress-step.completed::after {
+    content: '✓';
+    /* Checkmark for completed steps */
+    background-color: #28a745;
+}
+
+/* Form Styles */
+.form-control {
+    margin-bottom: 1.25rem;
+    /* Increased spacing */
+    border-radius: 0.75rem;
+    /* More rounded form fields */
+    border: 1px solid #ced4da;
+    /* Consistent border color */
+    padding: 0.75rem 1rem;
+    /* Comfortable padding */
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    /* Smooth transitions */
+    background-color: #fff;
+    /* Remove yellow background */
+}
+
+.form-control:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.75rem;
+    /* Adjusted padding */
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.5);
+}
+
+.btn-secondary {
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.75rem;
+    font-weight: 500;
+}
+
+.users.form.content {
+    margin-top: 4rem;
+    /* Increased margin */
+}
+
+.fieldset {
+    border: none;
+    /* Remove default fieldset border */
+    padding: 0;
+    margin-bottom: 2rem;
+    /* Add spacing between fieldsets */
+}
+
+.fieldset legend {
+    margin-bottom: 1.5rem;
+    font-size: 1.35rem;
+    /* Slightly larger legend */
+    font-weight: 600;
+    color: #495057;
+    /* Darker legend text */
+    padding: 0;
+}
+
+/* Form Navigation */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    /* Adjust for medium screens */
+    .card-body {
+        padding: 2rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        /* Stack items in the row on smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .card-header h3 {
+        font-size: 1.3rem;
+    }
+}

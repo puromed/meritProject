@@ -5,6 +5,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Cake\Validation\Validator;
 
 /**
  * User Entity
@@ -34,6 +35,27 @@ class User extends Entity
         'created' => true,
         'modified' => true,
     ];
+
+    // validators for email and password
+    public function validationDefault(Validator $validator): Validator
+    {
+        $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email')
+            ->add('email', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+            ]);
+
+        $validator
+            ->scalar('password')
+            ->minLength('password', 'create')
+            ->requirePresence('password', 'create')
+            ->notEmptyString('password');
+
+        return $validator;
+    }
 
     /**
      * Fields that are excluded from JSON versions of the entity.

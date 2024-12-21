@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Validation\Validator;
 
 /**
  * Student Entity
@@ -34,6 +35,8 @@ class Student extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'student_id' => true,
+        'user_id' => true,
         'name' => true,
         'date_of_birth' => true,
         'gender' => true,
@@ -47,4 +50,31 @@ class Student extends Entity
         'created' => true,
         'modified' => true,
     ];
+
+    // validators for name, date_of_birth, gender
+
+    public function validationDefault(Validator $validator): Validator
+    {
+        $validator
+            ->scalar('name')
+            ->maxLength('name', 255)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
+            ->date('date_of_birth')
+            ->requirePresence('date_of_birth', 'create')
+            ->notEmptyDate('date_of_birth');
+
+        $validator
+            ->scalar('gender')
+            ->requirePresence('gender', 'create')
+            ->notEmptyString('gender');
+        $validator
+        //student_id
+            ->scalar('student_id')
+            ->maxLength('student_id', 50)
+            ->notEmptyString('student_id');
+    return $validator;
+    }
 }

@@ -21,6 +21,8 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Controller\Controller;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Static content controller
@@ -31,6 +33,7 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+    use LocatorAwareTrait;
     /**
      * Displays a view
      *
@@ -43,6 +46,26 @@ class PagesController extends AppController
      *   be found and not in debug mode.
      * @throws \Cake\View\Exception\MissingTemplateException In debug mode.
      */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication');
+         
+        // Load your models
+         $this->Students = $this->getTableLocator()->get('Students');
+         $this->Activities = $this->getTableLocator()->get('Activities');
+         $this->StudentMerits = $this->getTableLocator()->get('StudentMerits');
+         $this->MeritLetterRequests = $this->getTableLocator()->get('MeritLetterRequests');
+
+    }
+    
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Authentication->allowUnauthenticated(['display']);
+    }
+
     public function display(string ...$path): ?Response
     {
         if (!$path) {
@@ -60,6 +83,8 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
         $this->set(compact('page', 'subpage'));
+
+       
 
         try {
             return $this->render(implode('/', $path));
@@ -101,10 +126,10 @@ class PagesController extends AppController
     $pendingRequests = 0;
     $recentActivities = [];
 
-    $this->loadModel('Students');
-    $this->loadModel('Activities');
-    $this->loadModel('StudentMerits');
-    $this->loadModel('MeritLetterRequests');
+    $this->Students = $this->getTableLocator()->get('Students');
+    $this->Activities = $this->getTableLocator()->get('Activities');
+    $this->StudentMerits = $this->getTableLocator()->get('StudentMerits');
+    $this->MeritLetterRequests = $this->getTableLocator()->get('MeritLetterRequests');
 
     try {
         // Dashboard statistics
@@ -130,4 +155,42 @@ class PagesController extends AppController
     $this->set(compact('studentCount', 'meritCount', 'activityCount', 
                     'pendingRequests', 'recentActivities'));
 }
+
+public function userDashboard()
+    {
+        $user = $this->Authentication->getIdentity();
+
+        if (!$user) {
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
+
+        // Load data for the user dashboard
+        // For example, fetch user-specific data
+        $this->Students = $this->getTableLocator()->get('Students');
+        $this->Activities = $this->getTableLocator()->get('Activities');
+        $this->StudentMerits = $this->getTableLocator()->get('StudentMerits');
+        $this->MeritLetterRequests = $this->getTableLocator()->get('MeritLetterRequests');
+
+        $data = [
+            'totalMerits' => $this->StudentMerits->find()
+            ->where(['student_id' => $user->id])
+            ->count(),
+            'recentActivities' => $this->Activities->find()
+            ->where(['merit_id' => $user->id])
+            ->order(['created' => 'DESC'])
+            ->limit(5)
+            ->all(),
+            'letterRequests' => $this->MeritLetterRequests->find()
+            ->where(['user_id' => $user->id])
+            ->order(['created' => 'DESC'])
+            ->limit(3)
+            ->all()
+        ];
+
+        $this->set(compact('user', 'data'));
+    }
+
+
+
+    
 }

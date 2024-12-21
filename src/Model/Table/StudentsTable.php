@@ -60,6 +60,11 @@ class StudentsTable extends Table
             ->notEmptyString('name');
 
         $validator
+        ->scalar('student_id')
+        ->maxLength('student_id', 30)
+        ->notEmptyString('student_id');
+        
+        $validator
             ->date('date_of_birth')
             ->requirePresence('date_of_birth', 'create')
             ->notEmptyDate('date_of_birth');

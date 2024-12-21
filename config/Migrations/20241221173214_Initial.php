@@ -103,11 +103,10 @@ class Initial extends BaseMigration
                 'null' => false,
                 'signed' => true,
             ])
-            ->addColumn('student_id', 'integer', [
+            ->addColumn('student_id', 'string', [
                 'default' => null,
-                'limit' => null,
-                'null' => true,
-                'signed' => true,
+                'limit' => 30,
+                'null' => false,
             ])
             ->addColumn('merit_id', 'integer', [
                 'default' => null,
@@ -149,10 +148,15 @@ class Initial extends BaseMigration
             ->create();
 
         $this->table('students', ['id' => false, 'primary_key' => ['student_id']])
-            ->addColumn('student_id', 'integer', [
+            ->addColumn('student_id', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('user_id', 'integer', [
                 'default' => null,
                 'limit' => null,
-                'null' => false,
+                'null' => true,
                 'signed' => true,
             ])
             ->addColumn('name', 'string', [
@@ -215,6 +219,23 @@ class Initial extends BaseMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addIndex(
+                [
+                    'student_id',
+                ],
+                [
+                    'name' => 'student_id',
+                    'unique' => true,
+                ]
+            )
+            ->addIndex(
+                [
+                    'user_id',
+                ],
+                [
+                    'name' => 'user_id',
+                ]
+            )
             ->create();
 
         $this->table('users')
@@ -269,16 +290,6 @@ class Initial extends BaseMigration
 
         $this->table('student_merits')
             ->addForeignKey(
-                'student_id',
-                'students',
-                'student_id',
-                [
-                    'update' => 'NO_ACTION',
-                    'delete' => 'NO_ACTION',
-                    'constraint' => 'student_merits_ibfk_1'
-                ]
-            )
-            ->addForeignKey(
                 'merit_id',
                 'merits',
                 'merit_id',
@@ -286,6 +297,29 @@ class Initial extends BaseMigration
                     'update' => 'NO_ACTION',
                     'delete' => 'NO_ACTION',
                     'constraint' => 'student_merits_ibfk_2'
+                ]
+            )
+            ->addForeignKey(
+                'student_id',
+                'students',
+                'student_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                    'constraint' => 'student_merits_ibfk_3'
+                ]
+            )
+            ->update();
+
+        $this->table('students')
+            ->addForeignKey(
+                'user_id',
+                'users',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                    'constraint' => 'students_ibfk_1'
                 ]
             )
             ->update();
@@ -307,10 +341,15 @@ class Initial extends BaseMigration
 
         $this->table('student_merits')
             ->dropForeignKey(
-                'student_id'
+                'merit_id'
             )
             ->dropForeignKey(
-                'merit_id'
+                'student_id'
+            )->save();
+
+        $this->table('students')
+            ->dropForeignKey(
+                'user_id'
             )->save();
 
         $this->table('activities')->drop()->save();

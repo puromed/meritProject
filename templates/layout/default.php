@@ -40,7 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <?= $this->Html->link('Emerit', ['controller' => 'Pages', 'action' => 'admin_dashboard'], ['class' => 'navbar-brand']) ?>
+    <?= $this->Html->link('Emerit', ['controller' => 'Pages', 'action' => 'landing'], ['class' => 'navbar-brand']) ?>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -69,13 +69,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </a>
                     <ul class="dropdown-menu">
                         <?= $this->Html->link('User Management', ['controller' => 'Users', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Merit Letter Requests', ['controller' => 'MeritLetter', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Merit Letter Requests', ['controller' => 'MeritLetterRequests', 'action' => 'adminIndex'], ['class' => 'dropdown-item']) ?>
                     </ul>
                 </li>
             <?php else: ?>
                 <!-- Student Navigation -->
                 <li class="nav-item">
-                    <?= $this->Html->link('Dashboard', ['controller' => 'Students', 'action' => 'dashboard'], ['class' => 'nav-link']) ?>
+                    <?= $this->Html->link('Dashboard', ['controller' => 'Pages', 'action' => 'user_dashboard'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -86,8 +86,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <?= $this->Html->link('Activities History', ['controller' => 'Activities', 'action' => 'myActivities'], ['class' => 'dropdown-item']) ?>
                         <?= $this->Html->link('Achievements', ['controller' => 'Students', 'action' => 'achievements'], ['class' => 'dropdown-item']) ?>
                         <div class="dropdown-divider"></div>
-                        <?= $this->Html->link('Request Merit Letter', ['controller' => 'MeritLetterRequests', 'action' => 'request'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Check Request Status', ['controller' => 'MeritLetterRequests', 'action' => 'status'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Request Merit Letter', ['controller' => 'MeritLetterRequests', 'action' => 'add'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Check Request Status', ['controller' => 'MeritLetterRequests', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
                     </ul>
                 </li>
                 <li class="nav-item">

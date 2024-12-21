@@ -61,6 +61,8 @@ public function bootstrap(): void
 
     $this->addPlugin('Authentication');
 
+
+
     if (PHP_SAPI !== 'cli') {
         FactoryLocator::add(
             'Table',
