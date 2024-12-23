@@ -25,28 +25,44 @@ return static function (RouteBuilder $routes) {
         // Connect '/student-merits' to StudentMerits controller
         $builder->connect('/student-merits', ['controller' => 'StudentMerits']);
 
-        // Connect '/merit-letter-requests/download/*' to MeritLetterRequests controller's download action
-        $builder->connect('/merit-letter-requests/download/*', [
-            'controller' => 'MeritLetterRequests',
-            'action' => 'download'
+       
+
+        /**
+         * Admin and student merit letter request routes
+         */
+
+         // User/Student-prefixed routes
+         $builder->connect('/meritletterrequests', [
+            'controller' => 'MeritLetterRequests', 
+            'action'=>'index'
+         ]);
+
+        $builder->connect('/meritletterrequests/add', [
+                'controller' => 'MeritLetterRequests', 
+                'action'=>'add'
+        ]);
+
+        $builder->connect('/meritletterrequests/edit/{id}', [
+                'controller' => 'MeritLetterRequests',
+                'action'=>'edit'
         ]);
 
         // Admin-prefixed routes
         $builder->prefix('admin', function (RouteBuilder $adminBuilder) {
             // Connect '/admin/merit-letter-requests' to adminIndex action
-            $adminBuilder->connect('/merit-letter-requests', [
+            $adminBuilder->connect('/meritletterrequests', [
                 'controller' => 'MeritLetterRequests',
                 'action' => 'adminIndex'
             ]);
 
             // Connect '/admin/merit-letter-requests/approve/*' to approve action
-            $adminBuilder->connect('/merit-letter-requests/approve/*', [
+            $adminBuilder->connect('/meritletterrequests/approve/*', [
                 'controller' => 'MeritLetterRequests',
                 'action' => 'approve'
             ]);
 
             // Connect '/admin/merit-letter-requests/deny/*' to deny action
-            $adminBuilder->connect('/merit-letter-requests/deny/*', [
+            $adminBuilder->connect('/meritletterrequests/deny/*', [
                 'controller' => 'MeritLetterRequests',
                 'action' => 'deny'
             ]);

@@ -11,7 +11,7 @@
         "cakephp/migrations": "^4.0.0",
         "cakephp/plugin-installer": "^2.0",
         "dompdf/dompdf": "^3.0",
-        "friendsofcake/cakepdf": "^5.0",
+        "friendsofcake/cakepdf": "5.0",
         "mobiledetect/mobiledetectlib": "^4.8.03"
     },
     "require-dev": {
@@ -29,7 +29,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "CakePdf\\": "./plugins/CakePdf/src/"
         }
     },
     "autoload-dev": {

@@ -69,7 +69,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </a>
                     <ul class="dropdown-menu">
                         <?= $this->Html->link('User Management', ['controller' => 'Users', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Merit Letter Requests', ['controller' => 'MeritLetterRequests', 'action' => 'adminIndex'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Merit Letter Requests', ['controller' => 'MeritLetterRequests', 'action' => 'AdminIndex'], ['class' => 'dropdown-item']) ?>
                     </ul>
                 </li>
             <?php else: ?>
@@ -82,8 +82,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         My Merit
                     </a>
                     <ul class="dropdown-menu">
-                        <?= $this->Html->link('Merit Points', ['controller' => 'StudentMerits', 'action' => 'myPoints'], ['class' => 'dropdown-item']) ?>
-                        <?= $this->Html->link('Activities History', ['controller' => 'Activities', 'action' => 'myActivities'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Merit Points', ['controller' => 'StudentMerits', 'action' => 'myPoints'], ['class' => 'dropdown-item']) ?> <!-- havent done yet -->
+                        <?= $this->Html->link('Activities History', ['controller' => 'Activities', 'action' => 'myActivities'], ['class' => 'dropdown-item']) ?> <!-- havent done yet -->
                         <?= $this->Html->link('Achievements', ['controller' => 'Students', 'action' => 'achievements'], ['class' => 'dropdown-item']) ?>
                         <div class="dropdown-divider"></div>
                         <?= $this->Html->link('Request Merit Letter', ['controller' => 'MeritLetterRequests', 'action' => 'add'], ['class' => 'dropdown-item']) ?>

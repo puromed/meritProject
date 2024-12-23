@@ -1,163 +1,133 @@
 <?php
 declare(strict_types=1);
 
-
-
 namespace App\Controller;
-
-use Cake\Event\EventInterface;
-use Cake\ORM\TableRegistry;
 
 class MeritLetterRequestsController extends AppController
 {
-
-    protected $MeritLetterRequests;
-    protected $students;
-    protected $StudentMerits;
-    protected $Users;
-    
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->loadComponent('Authentication.Authentication');
-
-      
-        // Get table instances using TableRegistry
-
-        $this->MeritLetterRequests = TableRegistry::getTableLocator()->get('MeritLetterRequests');
-        $this->Students = TableRegistry::getTableLocator()->get('Students');
-        $this->StudentMerits = TableRegistry::getTableLocator()->get('StudentMerits');
-        $this->Users = TableRegistry::getTableLocator()->get('Users');
-    }
-
-    public function beforeFilter(EventInterface $event)
-    {
-        parent::beforeFilter($event);
-
-        // Allow unauthenticated users to access the 'add' action
-        // Adjust the method name based on your Authentication plugin version
-        if (method_exists($this->Authentication, 'addUnauthenticatedActions')) {
-            $this->Authentication->addUnauthenticatedActions(['add']);
-        } else {
-            $this->Authentication->allowUnauthenticated(['add']);
-        }
-    }
-
-    // Users can submit a new merit letter request
-    public function add()
-    {
-        $meritLetterRequest = $this->MeritLetterRequests->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $meritLetterRequest = $this->MeritLetterRequests->patchEntity(
-                $meritLetterRequest,
-                $this->request->getData()
-            );
-            $user = $this->Authentication->getIdentity();
-            $meritLetterRequest->user_id = $user->id;
-            $meritLetterRequest->status = 'pending';
-
-            if ($this->MeritLetterRequests->save($meritLetterRequest)) {
-                $this->Flash->success('Your merit letter request has been submitted.');
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error('Unable to submit your letter request. Please try again.');
-        }
-        $this->set(compact('meritLetterRequest'));
-    }
-
-    // Users can view their own merit letter requests
     public function index()
     {
-        $user = $this->Authentication->getIdentity();
-        $meritLetterRequests = $this->MeritLetterRequests->find('all')
-            ->where(['user_id' => $user->id])
-            ->order(['created' => 'DESC']);
-        $this->set(compact('meritLetterRequests'));
-    }
-
-    // Admins can view all merit letter requests
-    public function adminIndex()
-    {
-        $this->authorizeAdmin();
-        
-        $query = $this->MeritLetterRequests->find()
-            ->contain(['Users'])
-            ->order(['MeritLetterRequests.created' => 'DESC']);
-    
+        // For regular users, show only their requests
+        if ($this->Authentication->getIdentity()->get('role') !== 'admin') {
+            $query = $this->MeritLetterRequests->find()
+                ->where(['MeritLetterRequests.user_id' => $this->Authentication->getIdentity()->get('id')])
+                ->contain(['Students', 'Users']);
+        } else {
+            $query = $this->MeritLetterRequests->find()
+                ->contain(['Students', 'Users']);
+        }
         $meritLetterRequests = $this->paginate($query);
         $this->set(compact('meritLetterRequests'));
     }
 
-    // Admin can approve a merit letter request
-    public function approve($id)
+    public function view($id = null)
     {
-        $this->authorizeAdmin();
+        $meritLetterRequest = $this->MeritLetterRequests->get($id, contain: ['Students', 'Users']);
+        $this->set('meritLetterRequest', $meritLetterRequest);
+    }
+
+    // download the merit letter
+    public function pdf($id = null) {
+        $this->viewBuilder()->enableAutoLayout(false);
+        $meritLetterRequest = $this->MeritLetterRequests->get($id, contain: ['Students', 'Users']);
+        $this->viewBuilder()->setClassName('CakePdf.Pdf');
+        $this->viewBuilder()->setOption('pdfConfig', [
+            'orientation' => 'portrait',
+            'download' => true,
+            'filename' => 'MeritLetter_' . $meritLetterRequest->id . '.pdf'
+        ]);
+        $this->set(compact('meritLetterRequest'));
+    }
+
+    public function add()
+    {
+        $meritLetterRequest = $this->MeritLetterRequests->newEmptyEntity();
+
+        // check if user has a pending or approved request
+        $existingRequest = $this->MeritLetterRequests->find()
+             ->where([
+                'MeritLetterRequests.user_id' => $this->Authentication->getIdentity()->get('id'),
+                'MeritLetterRequests.status IN' => ['pending', 'approved']
+            ])
+            ->first();
+
+        if ($existingRequest) {
+                $this->Flash->error(__('You already have a pending or approved request.'));
+                return $this->redirect(['action' => 'index']);
+            }
+
+
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $data['status'] = 'pending';
+            $data['user_id'] = $this->Authentication->getIdentity()->get('id');
+            $meritLetterRequest = $this->MeritLetterRequests->patchEntity($meritLetterRequest, $data);
+            
+            if ($this->MeritLetterRequests->save($meritLetterRequest)) {
+                $this->Flash->success(__('Your merit letter request has been submitted.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Unable to submit request. Please try again.'));
+        }
+        $students = $this->MeritLetterRequests->Students->find('list', limit: 200)->all();
+        $this->set(compact('meritLetterRequest', 'students'));
+    }
+
+    public function adminIndex()
+    {
+        $query = $this->MeritLetterRequests->find()
+            ->contain(['Students', 'Users'])
+            ->order(['MeritLetterRequests.created' => 'DESC']);
+        $meritLetterRequests = $this->paginate($query);
+        $this->set(compact('meritLetterRequests'));
+    }
+
+    public function approve($id = null)
+    {
+        $this->request->allowMethod(['post', 'put']);
         $meritLetterRequest = $this->MeritLetterRequests->get($id);
         $meritLetterRequest->status = 'approved';
-        if ($this->MeritLetterRequests->save($meritLetterRequest)) { // Corrected variable name
-            $this->Flash->success('The merit letter request has been approved.');
+        
+        if ($this->MeritLetterRequests->save($meritLetterRequest)) {
+            $this->Flash->success(__('The request has been approved.'));
         } else {
-            $this->Flash->error('Unable to approve the merit letter request. Please try again.');
+            $this->Flash->error(__('Could not approve the request.'));
         }
         return $this->redirect(['action' => 'adminIndex']);
     }
 
-    // Admin can reject a merit letter request
-    public function deny($id)
+    public function deny($id = null)
     {
-        $this->authorizeAdmin();
+        $this->request->allowMethod(['post', 'put']);
         $meritLetterRequest = $this->MeritLetterRequests->get($id);
         $meritLetterRequest->status = 'denied';
-        if ($this->MeritLetterRequests->save($meritLetterRequest)) { // Corrected variable name
-            $this->Flash->success('The merit letter request has been denied.');
+        
+        if ($this->MeritLetterRequests->save($meritLetterRequest)) {
+            $this->Flash->success(__('The request has been denied.'));
         } else {
-            $this->Flash->error('Unable to deny the merit letter request. Please try again.');
+            $this->Flash->error(__('Could not deny the request.'));
         }
         return $this->redirect(['action' => 'adminIndex']);
     }
 
-    // Users can download their merit letter if approved
-    public function download($id)
+    public function download($id = null)
     {
-        $user = $this->Authentication->getIdentity();
         $meritLetterRequest = $this->MeritLetterRequests->get($id, [
-            'contain' => ['Users'],
+            'contain' => ['Students', 'Users']
         ]);
-
-        // Check authorization and status
-        if ($meritLetterRequest->user_id !== $user->id || $meritLetterRequest->status != 'approved') {
-            $this->Flash->error('You are not authorized to download this letter.');
+        
+        if ($meritLetterRequest->status !== 'approved') {
+            $this->Flash->error(__('This letter request has not been approved yet.'));
             return $this->redirect(['action' => 'index']);
         }
-
-        // Fetch student's merits
-        $studentMerits = $this->StudentMerits->find()
-            ->contain(['Merits', 'Students'])
-            ->where(['StudentMerits.student_id' => $meritLetterRequest->student_id]);
-
-        // Set variables for the view
-        $this->set(compact('meritLetterRequest', 'studentMerits'));
-
-        // Disable auto layout for PDF
-        $this->viewBuilder()->enableAutoLayout(false);
-        // Use the CakePdf view class
-        $this->viewBuilder()->setClassName('CakePdf.Pdf');
-
-        // Set the PDF filename
-        $this->response = $this->response->withDownload('merit_letter.pdf');
-
-        // Set the template path
-        $this->viewBuilder()->setTemplatePath('MeritLetterRequests/pdf');
-        $this->render('letter');
+        
+        // PDF generation logic will go here
+        $this->set(compact('meritLetterRequest'));
     }
 
-    // Helper function to restrict admin actions
-    private function authorizeAdmin()
+    public function initialize(): void
     {
-        $user = $this->Authentication->getIdentity();
-        if ($user->role !== 'admin') {
-            $this->Flash->error('You are not authorized to perform this action.');
-            return $this->redirect(['/']);
-        }
+        parent::initialize();
+        // Add authorization checks here if needed
     }
 }
