@@ -98,14 +98,14 @@ copy config\app_local.example.php config\app_local.php
 composer install
 composer update
 bin/cake migrations migrate
-bin/cake migrations seed 
+bin/cake migrations seed --seed UsersSeed 
 bin/cake cache clear_all
 ```
 ### Test the website
 1. Go to https://localhost/meritProject
 2. Login with:
 - Admin: test123@localhost.com / test123
-- User: cuba@localhost.com / cuba
+- User: make registration
 
 ### Making Changes
 After cloning the repository, do this after each update to the folder, clone is done once to get the folder, pull is getting the latest update from the folder.
