@@ -15,10 +15,20 @@ class StudentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['login']);
+    }
+
     public function index()
     {
-        $query = $this->Students->find();
-        $students = $this->paginate($query);
+        $this->Authorization->skipAuthorization();
+
+        $students = $this->paginate($this->Students->find()
+            ->contain(['Users']));
+
 
         $this->set(compact('students'));
     }
@@ -32,6 +42,9 @@ class StudentsController extends AppController
      */
     public function view($id = null)
     {
+
+        $this->Authorization->skipAuthorization();
+
         $student = $this->Students->get($id, contain: []);
         $this->set(compact('student'));
     }
@@ -43,6 +56,9 @@ class StudentsController extends AppController
      */
     public function add()
     {
+        $this->Authorization->skipAuthorization();
+
+
         $student = $this->Students->newEmptyEntity();
         if ($this->request->is('post')) {
             $student = $this->Students->patchEntity($student, $this->request->getData());
@@ -65,6 +81,8 @@ class StudentsController extends AppController
      */
     public function edit($id = null)
     {
+
+        $this->Authorization->skipAuthorization();
         $student = $this->Students->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $student = $this->Students->patchEntity($student, $this->request->getData());
@@ -87,6 +105,8 @@ class StudentsController extends AppController
      */
     public function delete($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $this->request->allowMethod(['post', 'delete']);
         $student = $this->Students->get($id);
         if ($this->Students->delete($student)) {

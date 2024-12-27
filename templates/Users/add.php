@@ -85,11 +85,11 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <?php echo $this->Form->control('role', [
-                                        'options' => ['user' => 'User'],
+                                        'options' => ['user' => 'User', 'admin' => 'Admin'],
                                         'class' => 'form-control',
                                         'label' => 'Role',
                                         'default' => 'user',
-                                        'readonly' => true
+                                        
                                     ]); ?>
                             </div>
                         </fieldset>

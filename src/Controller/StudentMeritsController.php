@@ -15,11 +15,17 @@ class StudentMeritsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['login']);
+    }
+
     public function index()
     {
-        $query = $this->StudentMerits->find()
-            ->contain(['Students', 'Merits']);
-        $studentMerits = $this->paginate($query);
+        $this->Authorization->skipAuthorization();
+
+        $studentMerits = $this->paginate($this->StudentMerits->find()->contain(['Students', 'Merits', 'Activities']));
 
         $this->set(compact('studentMerits'));
     }
@@ -33,6 +39,8 @@ class StudentMeritsController extends AppController
      */
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $studentMerit = $this->StudentMerits->get($id, contain: ['Students', 'Merits']);
         $this->set(compact('studentMerit'));
     }
@@ -44,6 +52,8 @@ class StudentMeritsController extends AppController
      */
     public function add()
     {
+        $this->Authorization->skipAuthorization();
+
         $studentMerit = $this->StudentMerits->newEmptyEntity();
         if ($this->request->is('post')) {
             $studentMerit = $this->StudentMerits->patchEntity($studentMerit, $this->request->getData());
@@ -68,6 +78,8 @@ class StudentMeritsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $studentMerit = $this->StudentMerits->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $studentMerit = $this->StudentMerits->patchEntity($studentMerit, $this->request->getData());
@@ -92,6 +104,8 @@ class StudentMeritsController extends AppController
      */
     public function delete($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $this->request->allowMethod(['post', 'delete']);
         $studentMerit = $this->StudentMerits->get($id);
         if ($this->StudentMerits->delete($studentMerit)) {

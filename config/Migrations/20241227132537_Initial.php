@@ -16,6 +16,7 @@ class Initial extends BaseMigration
     {
         $this->table('activities', ['id' => false, 'primary_key' => ['activity_id']])
             ->addColumn('activity_id', 'integer', [
+                'autoIncrement' => true,
                 'default' => null,
                 'limit' => null,
                 'null' => false,
@@ -25,6 +26,26 @@ class Initial extends BaseMigration
                 'default' => null,
                 'limit' => 50,
                 'null' => false,
+            ])
+            ->addColumn('description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('activity_date', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('location', 'string', [
+                'default' => null,
+                'limit' => 100,
+                'null' => true,
+            ])
+            ->addColumn('availability', 'string', [
+                'default' => 'open',
+                'limit' => 20,
+                'null' => true,
             ])
             ->addColumn('merit_id', 'integer', [
                 'default' => null,
@@ -48,6 +69,60 @@ class Initial extends BaseMigration
                 ],
                 [
                     'name' => 'merit_id',
+                ]
+            )
+            ->create();
+
+        $this->table('merit_letter_requests')
+            ->addColumn('student_id', 'string', [
+                'default' => null,
+                'limit' => 30,
+                'null' => false,
+            ])
+            ->addColumn('status', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('user_id', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
+            ->addIndex(
+                [
+                    'student_id',
+                ],
+                [
+                    'name' => 'student_id',
+                    'unique' => true,
+                ]
+            )
+            ->addIndex(
+                [
+                    'student_id',
+                ],
+                [
+                    'name' => 'BY_STUDENT_ID',
+                ]
+            )
+            ->addIndex(
+                [
+                    'user_id',
+                ],
+                [
+                    'name' => 'user_id',
                 ]
             )
             ->create();
@@ -129,6 +204,18 @@ class Initial extends BaseMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('activity_id', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+                'signed' => true,
+            ])
+            ->addColumn('points', 'float', [
+                'default' => '0',
+                'limit' => null,
+                'null' => true,
+                'signed' => true,
+            ])
             ->addIndex(
                 [
                     'student_id',
@@ -143,6 +230,14 @@ class Initial extends BaseMigration
                 ],
                 [
                     'name' => 'merit_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'activity_id',
+                ],
+                [
+                    'name' => 'activity_id',
                 ]
             )
             ->create();
@@ -288,6 +383,19 @@ class Initial extends BaseMigration
             )
             ->update();
 
+        $this->table('merit_letter_requests')
+            ->addForeignKey(
+                'student_id',
+                'students',
+                'student_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                    'constraint' => 'merit_letter_requests_ibfk_1'
+                ]
+            )
+            ->update();
+
         $this->table('student_merits')
             ->addForeignKey(
                 'merit_id',
@@ -307,6 +415,16 @@ class Initial extends BaseMigration
                     'update' => 'NO_ACTION',
                     'delete' => 'NO_ACTION',
                     'constraint' => 'student_merits_ibfk_3'
+                ]
+            )
+            ->addForeignKey(
+                'activity_id',
+                'activities',
+                'activity_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                    'constraint' => 'student_merits_ibfk_4'
                 ]
             )
             ->update();
@@ -339,12 +457,20 @@ class Initial extends BaseMigration
                 'merit_id'
             )->save();
 
+        $this->table('merit_letter_requests')
+            ->dropForeignKey(
+                'student_id'
+            )->save();
+
         $this->table('student_merits')
             ->dropForeignKey(
                 'merit_id'
             )
             ->dropForeignKey(
                 'student_id'
+            )
+            ->dropForeignKey(
+                'activity_id'
             )->save();
 
         $this->table('students')
@@ -353,6 +479,7 @@ class Initial extends BaseMigration
             )->save();
 
         $this->table('activities')->drop()->save();
+        $this->table('merit_letter_requests')->drop()->save();
         $this->table('merits')->drop()->save();
         $this->table('student_merits')->drop()->save();
         $this->table('students')->drop()->save();

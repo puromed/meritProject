@@ -44,6 +44,7 @@ class AppController extends Controller
         
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authorization.Authorization');
        
 
         /*
@@ -51,5 +52,15 @@ class AppController extends Controller
          * see https://book.cakephp.org/5/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        // Skip authorization for error pages
+        if ($this->request->getParam('controller') === 'Error') {
+            $this->Authorization->skipAuthorization();
+        }
     }
 }

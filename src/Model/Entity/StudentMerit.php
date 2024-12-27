@@ -32,7 +32,9 @@ class StudentMerit extends Entity
     protected array $_accessible = [
         'student_id' => true,
         'merit_id' => true,
+        'activity_id' => true,
         'Date_Received' => true,
+        'points' => true,
         'created' => true,
         'modified' => true,
         'student' => true,

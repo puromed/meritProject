@@ -29,7 +29,11 @@ class Activity extends Entity
      */
     protected array $_accessible = [
         'activity_name' => true,
+        'description' => true,
+        'activity_date' => true,
+        'location' => true,
         'merit_id' => true,
+        'availability' => true,
         'created' => true,
         'modified' => true,
         'merit' => true,

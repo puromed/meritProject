@@ -1,0 +1,223 @@
+/*  Dashboard Styles */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+    --secondary-gradient: linear-gradient(135deg, #97ABFF 0%, #123597 100%);
+    --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    --background-gradient: linear-gradient(135deg, #f6f9fc 0%, #eef3f9 100%);
+    --card-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    --surface-color: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #95a5a6;
+    --border-radius: 12px;
+    --card-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
+}
+
+/* Body and main background */
+body {
+    background: var(--background-gradient);
+    min-height: 100vh;
+}
+
+/* Enhanced Sidebar */
+.sidebar {
+    background: var(--surface-color);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Enhanced Cards */
+.card {
+    background: var(--card-gradient);
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Stat Cards */
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+.stat-card .icon-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-gradient);
+    color: white;
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.stat-card:hover .icon-container {
+    transform: scale(1.1);
+}
+
+/* Enhanced Navigation */
+.nav-link {
+    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    padding: 0.75rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, rgba(107, 115, 255, 0.1) 0%, rgba(0, 13, 255, 0.1) 100%);
+    color: var(--text-primary);
+}
+
+.nav-link.active {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(107, 115, 255, 0.3);
+}
+
+/* Enhanced Progress Bars */
+.progress {
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.progress-bar {
+    background: var(--primary-gradient);
+    animation: progressAnimation 1.5s ease-in-out;
+}
+
+/* Welcome Section Enhancement */
+.welcome-section {
+    background: var(--card-gradient);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.welcome-section h2 {
+    background: var(--primary-gradient);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+/* Chart Enhancement */
+.chart-card {
+    padding: 1.5rem;
+    background: var(--surface-color);
+}
+
+/* Glass Morphism Effect for Cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Animations */
+@keyframes progressAnimation {
+    from { width: 0; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations to elements */
+.card {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.row > div:nth-child(1) .card { animation-delay: 0.1s; }
+.row > div:nth-child(2) .card { animation-delay: 0.2s; }
+.row > div:nth-child(3) .card { animation-delay: 0.3s; }
+
+/* Hover Effects for Interactive Elements */
+.list-group-item {
+    transition: var(--transition);
+    border: none;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--border-radius);
+}
+
+.list-group-item:hover {
+    background: linear-gradient(135deg, rgba(107, 115, 255, 0.05) 0%, rgba(0, 13, 255, 0.05) 100%);
+    transform: translateX(5px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-gradient);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 4px;
+}
+
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    .welcome-section {
+        padding: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+}

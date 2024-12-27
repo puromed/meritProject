@@ -50,6 +50,7 @@ class PagesController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
+        
          
         // Load your models
          $this->Students = $this->getTableLocator()->get('Students');
@@ -64,25 +65,41 @@ class PagesController extends AppController
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['display']);
+        $this->Authorization->skipAuthorization(['display']);
     }
 
     public function display(string ...$path): ?Response
     {
+
+        // skip authorization for display
+        $this->Authorization->skipAuthorization();
+
         if (!$path) {
             return $this->redirect('/');
         }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
+       
+        if ($path[0] === 'user_dashboard') {
+            $user = $this->request->getAttribute('identity');
+            if ($user) {
 
-        if (!empty($path[0])) {
-            $page = $path[0];
+                //debug
+                // Debug user information
+            echo '<pre>';
+            print_r($user);
+            echo '</pre>';
+
+                // Find student data based on user_id
+                $student = $this->Students->find()
+                ->where(['user_id' => $user->id])
+                ->first();
+
+                echo '<pre>';
+                print_r($student);
+                echo '</pre>';
+            
+            $this->set('student', $student);
+            }
         }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-        $this->set(compact('page', 'subpage'));
 
        
 

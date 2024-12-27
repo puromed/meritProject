@@ -68,6 +68,7 @@ return static function (RouteBuilder $routes) {
             ]);
         });
 
+
         /*
          * Connect catchall routes for all controllers.
          *

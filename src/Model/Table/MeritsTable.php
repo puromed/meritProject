@@ -44,6 +44,14 @@ class MeritsTable extends Table
         $this->setPrimaryKey('merit_id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Activities', [
+            'foreignKey' => 'merit_id',
+        ]);
+
+        $this->hasMany('StudentMerits', [
+            'foreignKey' => 'merit_id',
+        ]);
     }
 
     /**

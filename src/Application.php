@@ -26,6 +26,14 @@ use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
 use Authentication\Identifier\AbstractIdentifier;
 
+// authorization plugin
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
+
+
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
 use Cake\Datasource\FactoryLocator;
@@ -47,7 +55,7 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  *
  * @extends \Cake\Http\BaseApplication<\App\Application>
  */
-class Application extends BaseApplication implements AuthenticationServiceProviderInterface
+class Application extends BaseApplication implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
 /**
  * Load all the application configuration and bootstrap logic.
@@ -60,6 +68,8 @@ public function bootstrap(): void
     parent::bootstrap();
 
     $this->addPlugin('Authentication');
+    $this->addPlugin('Authorization');
+    $this->addPlugin('Search');
 
 
 
@@ -79,6 +89,8 @@ public function bootstrap(): void
  */
 public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 {
+    $middlewareQueue = new MiddlewareQueue();
+
     $middlewareQueue
         // Catch any exceptions in the lower layers,
         // and make an error page/response
@@ -103,6 +115,9 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
         // Add Authentication Middleware
         ->add(new AuthenticationMiddleware($this))
 
+        // Add Authorization Middleware
+        ->add(new AuthorizationMiddleware($this))
+
         // Cross Site Request Forgery (CSRF) Protection Middleware
         // https://book.cakephp.org/5/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
         ->add(new CsrfProtectionMiddleware([
@@ -121,6 +136,13 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
  */
 public function services(ContainerInterface $container): void
 {
+}
+
+// authorization plugin
+public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+{
+    $resolver = new OrmResolver();
+    return new AuthorizationService($resolver);
 }
 
 // authentication plugin
@@ -161,5 +183,7 @@ public function getAuthenticationService(ServerRequestInterface $request): Authe
 
     return $service;
 }
+
+
 
 }

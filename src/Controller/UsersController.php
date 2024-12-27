@@ -29,7 +29,10 @@ class UsersController extends AppController
 {
     parent::beforeFilter($event);
 
-    $this->Authentication->allowUnauthenticated(['login', 'add','landing']);
+    // skip authorization for login and display
+
+ $this->Authentication->allowUnauthenticated(['login', 'add','landing']);
+ $this->Authorization->skipAuthorization(['login', 'logout']);
 }
 
 
@@ -57,6 +60,10 @@ class UsersController extends AppController
     //authentication plugin
     public function login()
     {
+
+        // skip authorization for login
+        $this->Authorization->skipAuthorization();
+
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
@@ -86,6 +93,9 @@ class UsersController extends AppController
 
 public function logout()
 {
+    // skip authorization for logout
+    $this->Authorization->skipAuthorization();
+    
     $this->Authentication->logout();
     return $this->redirect(['controller' => 'Users', 'action' => 'login']);
 }

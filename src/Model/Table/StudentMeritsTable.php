@@ -54,6 +54,10 @@ class StudentMeritsTable extends Table
         $this->belongsTo('Merits', [
             'foreignKey' => 'merit_id',
         ]);
+        $this->belongsTo('Activities', [
+            'foreignKey' => 'activity_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -88,6 +92,19 @@ class StudentMeritsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        parent::buildRules($rules);
+        /**
+         * Activitiy rules
+         */
+
+         $rules->add($rules->isUnique(
+            ['student_id', 'activity_id'],
+            'You have already joined this activity.'
+         ));
+
+         /**
+          * Student rules
+          */
         $rules->add($rules->existsIn(['student_id'], 'Students'), ['errorField' => 'student_id']);
         $rules->add($rules->existsIn(['merit_id'], 'Merits'), ['errorField' => 'merit_id']);
 

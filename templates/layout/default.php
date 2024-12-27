@@ -26,9 +26,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
+       <!-- font awesome -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <!--bootstrap css-->
 
     <?= $this->Html->css("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css") ?>
+
+    <!-- jquery -->
+    <?= $this->Html->script('https://code.jquery.com/jquery-3.6.0.min.js') ?>
     
     <!-- custom css -->
     <!-- <?= $this->Html->css("custom.css") ?> -->
@@ -36,6 +42,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
+
+
+ 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -116,11 +126,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?php endif; ?>
       </ul>
 
-      <!-- Search Form -->
-      <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
+      
     </div>
   </div>
 </nav>
@@ -144,6 +150,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </footer>
 
     <!--bootstrap js-->
-    <?= $this->Html->script('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js') ?>
+    <?= $this->Html->script([
+    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+]) ?>
+
+
+
+
+
+
 </body>
+
 </html>

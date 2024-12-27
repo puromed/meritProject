@@ -44,6 +44,15 @@ class StudentsTable extends Table
         $this->setPrimaryKey('student_id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'LEFT',
+        ]);
+
+        $this->hasMany('StudentMerits', [
+            'foreignKey' => 'student_id',
+        ]);
     }
 
     /**

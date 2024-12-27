@@ -5,8 +5,10 @@ namespace App\Controller;
 
 class MeritLetterRequestsController extends AppController
 {
+    
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         // For regular users, show only their requests
         if ($this->Authentication->getIdentity()->get('role') !== 'admin') {
             $query = $this->MeritLetterRequests->find()
@@ -22,6 +24,7 @@ class MeritLetterRequestsController extends AppController
 
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $meritLetterRequest = $this->MeritLetterRequests->get($id, contain: ['Students', 'Users']);
         $this->set('meritLetterRequest', $meritLetterRequest);
     }
@@ -41,6 +44,7 @@ class MeritLetterRequestsController extends AppController
 
     public function add()
     {
+        $this->Authorization->skipAuthorization();
         $meritLetterRequest = $this->MeritLetterRequests->newEmptyEntity();
 
         // check if user has a pending or approved request
@@ -75,6 +79,7 @@ class MeritLetterRequestsController extends AppController
 
     public function adminIndex()
     {
+        $this->Authorization->skipAuthorization();
         $query = $this->MeritLetterRequests->find()
             ->contain(['Students', 'Users'])
             ->order(['MeritLetterRequests.created' => 'DESC']);
@@ -84,6 +89,7 @@ class MeritLetterRequestsController extends AppController
 
     public function approve($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'put']);
         $meritLetterRequest = $this->MeritLetterRequests->get($id);
         $meritLetterRequest->status = 'approved';
@@ -98,6 +104,7 @@ class MeritLetterRequestsController extends AppController
 
     public function deny($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'put']);
         $meritLetterRequest = $this->MeritLetterRequests->get($id);
         $meritLetterRequest->status = 'denied';
@@ -112,6 +119,7 @@ class MeritLetterRequestsController extends AppController
 
     public function download($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $meritLetterRequest = $this->MeritLetterRequests->get($id, [
             'contain' => ['Students', 'Users']
         ]);
@@ -129,5 +137,6 @@ class MeritLetterRequestsController extends AppController
     {
         parent::initialize();
         // Add authorization checks here if needed
+        $this->Authorization->skipAuthorization();
     }
 }

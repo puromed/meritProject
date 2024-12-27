@@ -7,6 +7,7 @@ use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Search\Manager as SearchManager;
 
 /**
  * Activities Model
@@ -49,7 +50,59 @@ class ActivitiesTable extends Table
 
         $this->belongsTo('Merits', [
             'foreignKey' => 'merit_id',
+            'joinType' => 'INNER'
         ]);
+
+        $this->hasMany('StudentMerits', [
+            'foreignKey' => 'activity_id',
+        ]);
+
+        $this->addBehavior('Search.Search');
+    }
+
+    // search configuration
+    public function searchConfiguration(): array
+    {
+        $search = new SearchManager($this);
+        $search
+            ->add('activity_name', [
+                'before' => true,
+                'after' => true,
+                'field' => 'Activities.activity_name',
+                'filterEmpty' => true,
+                'mode' => 'and'
+            ])
+            ->add('location', [
+                'before' => true,
+                'after' => true,
+                'field' => 'Activities.location',
+                'filterEmpty' => true,
+                'mode' => 'and'
+            ])
+            ->add('availability', [
+                'field' => 'Activities.availability',
+                'filterEmpty' => true,
+                'mode' => 'and'
+            ])
+            ->add('merit_id',  [
+                'field' => 'Activities.merit_id',
+                'filterEmpty' => true,
+                'mode' => 'and'
+            ])
+            ->add('from_date',  [
+                'operator' => '>=',
+                'field' => 'Activities.activity_date',
+                'filterEmpty' => true,
+                'mode' => 'and'
+            ])
+            ->add('to_date',  [
+                'operator' => '<=',
+                'field' => 'Activities.activity_date',
+                'filterEmpty' => true,
+                'mode' => 'and'
+            ]);
+
+        return $search;
     }
 
     /**
@@ -63,8 +116,24 @@ class ActivitiesTable extends Table
         $validator
             ->scalar('activity_name')
             ->maxLength('activity_name', 50)
+            ->requirePresence('activity_name', 'create')
             ->notEmptyString('activity_name');
-
+        $validator
+            ->scalar('description')
+            ->allowEmptyString('description');
+        $validator
+            ->dateTime('activity_date')
+            ->requirePresence('activity_date', 'create')
+            ->notEmptyDateTime('activity_date');
+        $validator
+            ->scalar('location')
+            ->maxLength('location', 100)
+            ->allowEmptyString('location');
+        $validator
+            ->scalar('availability')
+            ->maxLength('availability', 20)
+            ->requirePresence('availability', 'create')
+            ->notEmptyString('availability');
         $validator
             ->integer('merit_id')
             ->allowEmptyString('merit_id');

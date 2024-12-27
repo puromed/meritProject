@@ -15,10 +15,17 @@ class MeritsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['login']);
+    }
+
     public function index()
     {
-        $query = $this->Merits->find();
-        $merits = $this->paginate($query);
+        $this->Authorization->skipAuthorization();
+
+        $merits = $this->paginate($this->Merits);
 
         $this->set(compact('merits'));
     }
@@ -32,6 +39,8 @@ class MeritsController extends AppController
      */
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $merit = $this->Merits->get($id, contain: []);
         $this->set(compact('merit'));
     }
@@ -43,6 +52,8 @@ class MeritsController extends AppController
      */
     public function add()
     {
+        $this->Authorization->skipAuthorization();
+
         $merit = $this->Merits->newEmptyEntity();
         if ($this->request->is('post')) {
             $merit = $this->Merits->patchEntity($merit, $this->request->getData());
@@ -65,6 +76,8 @@ class MeritsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $merit = $this->Merits->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $merit = $this->Merits->patchEntity($merit, $this->request->getData());
@@ -87,6 +100,8 @@ class MeritsController extends AppController
      */
     public function delete($id = null)
     {
+        $this->Authorization->skipAuthorization();
+
         $this->request->allowMethod(['post', 'delete']);
         $merit = $this->Merits->get($id);
         if ($this->Merits->delete($merit)) {
