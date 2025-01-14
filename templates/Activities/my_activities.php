@@ -1,7 +1,60 @@
 <?php
+
+echo $this->Html->css([
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css",
+    "external/dashboard.css"
+], ['block' => 'css']);
+
+
+
+// Add required JavaScript
+echo $this->Html->script([
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" // static chart
+], ['block' => 'script']);
+?>
+
+<?php
 $this->assign('title', 'My Activities');
 ?>
 
+<!-- sidebar -->
+<div class="d-flex h-100">
+    <!-- Sidebar -->
+    <div class="sidebar bg-white shadow-sm p-3" style="width: 250px;">
+        <div class="d-flex align-items-center mb-4 px-2">
+            <i class="fas fa-graduation-cap fs-4 me-2"></i>
+            <span class="fs-4">Student Merit System</span>
+        </div>
+
+
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+                <?= $this->Html->link(
+                    '<i class="fas fa-home me-2"></i> Dashboard',
+                    ['controller' => 'Pages', 'action' => 'display', 'user_dashboard'],
+                    ['class' => 'nav-link active', 'escape' => false]
+                ) ?>
+            </li>
+            <li class="nav-item mb-2">
+                <?= $this->Html->link(
+                    '<i class="fas fa-trophy me-2"></i> My Activities',
+                    ['controller' => 'Activities', 'action' => 'myActivities'],
+                    ['class' => 'nav-link', 'escape' => false]
+                ) ?>
+            </li>
+            <li class="nav-item mb-2">
+                <?= $this->Html->link(
+                    '<i class="fas fa-medal me-2"></i>  My Merits',
+                    ['controller' => 'StudentMerits', 'action' => 'display', 'merit'],
+                    ['class' => 'nav-link', 'escape' => false]
+                ) ?>
+            </li>
+        </ul>
+    </div>
+
+<!-- main content -->
 <div class="container-fluid p-4">
     <div class="row mb-4">
         <div class="col-md-12">

@@ -6,16 +6,17 @@
 ?>
 <!-- external css -->
 <?php 
-    echo $this->Html->css("studentsIndex.css") 
+    echo $this->Html->css('custom.css') 
 ?> 
 <?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 ?>
 
-<div class="students index content rounded-5">
-    <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'button float-right rounded-4']) ?>
-    <h3><?= __('Students') ?></h3>
+
+<div class="students index content mt-4 rounded-3">
+    <?= $this->Html->link(__('Add New Student'), ['action' => 'add'], ['class' => 'button mx-4 mt-4 float-right rounded-4']) ?>
+    <h3><?= __('Students List') ?></h3>
     <div class="table-responsive rounded-4">
-        <table>
+        <table class="border-2">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('student_id') ?></th>
