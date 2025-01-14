@@ -26,7 +26,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center py-5 bg-light">
+    <section class="hero-section text-center py-5 bg-light rounded-4">
         <div class="container">
             <h1 class="display-4 fw-bold">Collect, Store, and View Your e-Merit</h1>
             <p class="lead text-muted mt-3">We provide a smooth and organized way to preserve students' merits with integrity.</p>

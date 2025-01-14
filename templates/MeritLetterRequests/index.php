@@ -4,6 +4,9 @@
  * @var iterable<\App\Model\Entity\MeritLetterRequest> $meritLetterRequests
  */
 ?>
+
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') ?>
+
 <div class="meritLetterRequests index content">
     <?= $this->Html->link(__('New Merit Letter Request'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Merit Letter Requests') ?></h3>
