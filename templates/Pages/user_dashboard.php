@@ -25,6 +25,7 @@ echo $this->Html->script([
             <span class="fs-4">Student Merit System</span>
         </div>
 
+
         <ul class="nav flex-column">
             <li class="nav-item mb-2">
                 <?= $this->Html->link(
@@ -51,8 +52,6 @@ echo $this->Html->script([
     </div>
 
     <!-- Main Content -->
-
-    
     <div class="flex-grow-1 bg-light">
         <div class="container-fluid p-4">
             <!-- Welcome Section -->

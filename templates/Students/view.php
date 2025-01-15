@@ -7,7 +7,7 @@
 
 <!-- css file -->
 <?php 
-    echo $this->Html->css("usersView.css") 
+    echo $this->Html->css("custom.css") 
 ?> 
 <!-- bs css -->
 <?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
@@ -16,14 +16,14 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Student'), ['action' => 'edit', $student->student_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Student'), ['action' => 'delete', $student->student_id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->student_id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Students'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <h4 class="heading mb-3 mt-4"><?= __('Actions') ?></h4>
+            <?= $this->Html->link(__('Edit Student'), ['action' => 'edit', $student->student_id], ['class' => 'actions text-white px-2 py-2 bg-success rounded-3']) ?>
+            <?= $this->Form->postLink(__('Delete Student'), ['action' => 'delete', $student->student_id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->student_id), 'class' => 'actions text-white px-2 py-2 bg-danger rounded-3']) ?>
+            <?= $this->Html->link(__('List Students'), ['action' => 'index'], ['class' => 'actions text-white px-2 py-2 bg-primary rounded-3']) ?>
+            <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'actions text-white px-2 py-2 bg-success rounded-3']) ?>
         </div>
     </aside>
-    <div class="column column-80">
+    <div class="column mt-4 column-80">
         <div class="students view content">
             <h3><?= h($student->name) ?></h3>
             <table>
