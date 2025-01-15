@@ -45,6 +45,11 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('Authorization.Authorization');
+
+        // exclude landing page from default layout
+        if ($this->request->getParam('action') !== 'landing') {
+            $this->viewBuilder()->setLayout('default');
+        }
        
 
         /*

@@ -113,6 +113,13 @@ class PagesController extends AppController
         }
     }
 
+    // public function landing()
+    public function landing()
+    {
+        $this->viewBuilder()->setLayout('landing');
+        $this->Authorization->skipAuthorization();
+    }
+
     // public function dashboard()
     public function dashboard()
     {

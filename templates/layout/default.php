@@ -54,6 +54,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if ($this->Identity->isLoggedIn()): ?>
@@ -104,7 +105,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <?= $this->Html->link('View Activities', ['controller' => 'Activities', 'action' => 'available'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= $this->Html->link('My Profile', ['controller' => 'Users', 'action' => 'profile'], ['class' => 'nav-link']) ?>
+                    <?= $this->Html->link('My Profile', ['controller' => 'Students', 'action' => 'profile'], ['class' => 'nav-link']) ?>
                 </li>
             <?php endif; ?>
         <?php endif; ?>
@@ -112,6 +113,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
       <!-- Auth Links -->
       <ul class="navbar-nav">
+        <li class="nav-item">
+            <!-- Dark mode -->
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa moon"></i>
+            </button>
+        </li>
         <?php if ($this->Identity->isLoggedIn()): ?>
             <li class="nav-item">
                 <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
@@ -124,6 +131,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'add'], ['class' => 'nav-link']) ?>
             </li>
         <?php endif; ?>
+
+                
       </ul>
 
       
@@ -156,6 +165,30 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
 
 
+
+ <script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-bs-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-bs-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+
+        // update icon
+        const icon = document.querySelector('.theme-toggle i');
+        icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    // Set Initial theme
+    document.addEventListener('DOMContentLoaded', ()=> {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+
+        const icon = document.querySelector('.theme-toggle i');
+        icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+ </script>
 
 
 

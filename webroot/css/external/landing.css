@@ -1,61 +1,281 @@
+:root {
+    --primary-color: #0066FF;
+    --secondary-color: #d6dbda;
+    --text-dark: #212529;
+    --text-light: #6c757d;
+}
+
+[data-bs-theme="dark"] {
+    --primary-color: #4d8bff;
+    --secondary-color: #2a2d2e;
+    --text-dark: #ffffff;
+    --text-light: #ced4da;
+}
+
+body {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    min-height: 100vh;
+}
+
+/* Glassmorphism effect for cards and nav */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Navbar Styling */
+.navbar {
+    transition: all 0.3s ease;
+    padding: 1rem 0;
+}
+
 .navbar-light .navbar-brand {
-    font-size: 1.5rem;
-    color: #0d6efd;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), #00a3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.navbar-light .navbar-brand:hover {
+    transform: scale(1.05);
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: #000;
+    color: var(--text-dark);
     font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .navbar-light .navbar-nav .nav-link.btn {
-    background-color: #0d6efd;
-    color: #fff !important;
+    background: linear-gradient(45deg, var(--primary-color), #00a3ff);
+    border: none;
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
 }
 
+.navbar-light .navbar-nav .nav-link.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+}
+
+/* Hero Section */
 .hero-section {
-    padding: 100px 0;
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 70%);
 }
 
 .hero-section h1 {
-    font-size: 2.5rem;
-    color: #212529;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
 }
 
 .hero-section p {
-    color: #6c757d;
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
 }
 
-.features-section h5 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    color: #212529;
+.hero-section .btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    background: linear-gradient(45deg, var(--primary-color), #00a3ff);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
-.features-section p {
-    color: #6c757d;
+.hero-section .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+}
+
+/* Features Section */
+.features-section {
+    padding: 80px 0;
+}
+
+.feature-card {
+    padding: 2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), #00a3ff);
 }
 
 .feature-icon i {
-    font-size: 3rem;
-    color: #0d6efd;
+    font-size: 2.5rem;
+    color: white;
 }
 
-.footer {
-    background-color: #212529;
+.features-section h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
 }
 
-.footer p {
-    margin: 0;
+.features-section p {
+    color: var(--text-light);
+    line-height: 1.6;
 }
 
-/* Responsiveness */
+/* Stats Section */
+.stats-section .glass-effect {
+    transition: transform 0.3s ease;
+}
+
+.stats-section .glass-effect:hover {
+    transform: translateY(-5px);
+}
+
+/* How It Works Section */
+.step-number {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), #00a3ff);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+/* CTA Section */
+.cta-section .glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-section, .features-section, .stats-section, .how-it-works-section, .cta-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Dark mode adjustments */
+[data-bs-theme="dark"] .glass-effect {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-bs-theme="dark"] .btn-outline-light {
+    color: var(--text-light);
+}
+
+/* Dark Mode Toggle */
+.theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 2.8rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-section {
-        padding: 50px 0;
+        padding: 80px 0;
     }
 
     .hero-section h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+    }
+
+    .feature-card {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
     }
 }

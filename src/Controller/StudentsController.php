@@ -117,4 +117,26 @@ class StudentsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    // profile
+    public function profile()
+    {
+        $this->Authorization->skipAuthorization();
+
+        // Get current user
+        $currentUser = $this->Authentication->getIdentity();
+
+        // Find student record associated with current user
+        $student = $this->Students->find()
+            ->where(['user_id' => $currentUser->id])
+            ->contain(['Users', 'StudentMerits' => ['Merits', 'Activities']])
+            ->first();
+
+        if (!$student) {
+            $this->Flash->error('Student profile not found');
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $this->set(compact('student'));
+    }
 }
