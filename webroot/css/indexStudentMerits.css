@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #adbbda, #ede8f5);
+    background: linear-gradient(135deg, #c9d3e9, #ede8f5);
     margin: 0;
     padding: 0;
     line-height: 1.6;
@@ -15,7 +15,7 @@ h3 {
 
 /* Container */
 .studentMerits.index.content {
-    background: #adbbda;
+    background: #cad5eb;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 20px auto;

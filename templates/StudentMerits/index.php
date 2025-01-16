@@ -13,7 +13,7 @@
 ?>
 <div class="studentMerits index content rounded-4">
     <?= $this->Html->link(__('New Student Merit'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Student Merits') ?></h3>
+    <h3><?= __('Student Merits') ?> <i class="fa-solid fa-ranking-star"></i></h3>
     <div class="table-responsive rounded-4">
         <table>
             <thead>
