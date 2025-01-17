@@ -85,9 +85,9 @@ echo $this->Html->script([
                                 <i class="fas fa-star text-primary me-2"></i>
                                 <h6 class="mb-0">Total Merit Points</h6>
                             </div>
-                            <h2 class="mt-3 mb-0">30</h2>
+                            <h2 class="mt-3 mb-0"><?= number_format($totalMerits->total ?? 0) ?></h2>
                             <div class="progress mt-3">
-                                <div class="progress-bar" role="progressbar" style="width: 30%"></div>
+                                <div class="progress-bar" role="progressbar" style="width: <?= min(($totalMerits->total ?? 0) * 10, 100) ?>%"></div>
                             </div>
                         </div>
                     </div>
@@ -104,11 +104,33 @@ echo $this->Html->script([
                                 <i class="fas fa-trophy text-success me-2"></i>
                                 <h6 class="mb-0">Activities Joined</h6>
                             </div>
-                            <h2 class="mb-2">3</h2>
-                            <p class="text-muted mb-0">2 upcoming activities</p>
+                            <h2 class="mt-3 mb-0"><?= $activitiesCount ?></h2>
+                            <?php if (!empty($upcomingActivities)): ?>
+                                <p class="text-muted mb-0"><?= count($upcomingActivities) ?> upcoming</p>
+                            <?php else: ?>
+                                <p class="text-muted mb-0">No upcoming activities</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
+
+                <!--Recent Activity -->
+            <div class="col-md-4">
+                <div class="card stat-card bg-light border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-clock text-info me-2"></i>
+                            <h6 class="mb-0">Latest Activity</h6>
+                        </div>
+                        <?php if ($latestMerit): ?>
+                            <h4 class="mt-3 mb-0"><?= h($latestMerit->activity->activity_name ?? 'N/A') ?></h4>
+                            <p class="text-muted mb-0"><?= $latestMerit->created->format('d M Y') ?></p>
+                        <?php else: ?>
+                            <p class="mt-3 mb-0">No activities yet</p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
 
                 <!-- Current College -->
                 <div class="col-md-6">
@@ -125,16 +147,59 @@ echo $this->Html->script([
             </div>
 
             <!-- Charts and Activities Row -->
-            <div class="row g-4">
-                <!-- Merit Progress Chart -->
+            <div class="row g-4 mb-5">
+                <!-- Monthly progress Chart -->
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Merit Progress</h5>
-                            <canvas id="meritChart" height="300"></canvas>
+                            <canvas id="monthlyProgressChart"></canvas>
                         </div>
                     </div>
                 </div>
+
+                <!-- Merit Distribution Chart -->
+                 <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Merit Distribution</h5>
+                            <canvas id="distributionChart"></canvas>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Recent Merit History -->
+                  <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="margin-top: 20px;">
+                            <div class="card-body">
+                                <h5 class="card-title">Recent Merit History</h5>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Activity</th>
+                                                <th>Merit Type</th>
+                                                <th>Points</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($recentMerits as $merit): ?>
+                                                <tr>
+                                                    <td><?= h($merit->activity->activity_name ?? 'N/A') ?></td>
+                                                    <td><?= h($merit->merit->merit_type ?? 'N/A') ?></td>
+                                                    <td><?= number_format($merit->points ?? 2) ?></td>
+                                                    <td><?= $merit->created->format('d M Y') ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
 
                 <!-- Upcoming Activities -->
                 <div class="col-md-4">
@@ -160,6 +225,26 @@ echo $this->Html->script([
                         </div>
                     </div>
                 </div>
+
+                <!-- Hint Card 1 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tip of the Day</h5>
+                            <p class="card-text">Remember to check your merit points regularly to stay updated on your achievements!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hint Card 2 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Did You Know?</h5>
+                            <p class="card-text">Participating in extracurricular activities can boost your merit points significantly!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             
@@ -167,37 +252,59 @@ echo $this->Html->script([
     </div>
 </div>
 
+<!-- Chart initialization -->
+ <?php $this->Html->script('https://cdn.jsdelivr.net/npm/chart.js', ['block' => true]); ?>
 <?php $this->append('script'); ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('meritChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Merit Points',
-                data: [30, 45, 60, 70, 90, 120],
-                borderColor: 'rgb(13, 110, 253)',
-                tension: 0.4,
-                fill: true,
-                backgroundColor: 'rgba(13, 110, 253, 0.1)'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+   //Monthly Progress Chart
+   new Chart(document.getElementById('monthlyProgressChart'), {
+    type: 'line',
+    data: {
+        labels: <?= json_encode(collection($monthlyProgress)->extract('month')->toArray()) ?>,
+        datasets: [{
+            label: 'Merit Points',
+            data: <?= json_encode(collection($monthlyProgress)->extract('total')->toArray()) ?>,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Merit Progress'
+
             }
         }
-    });
+    }
+   });
+
+   //Merit Distribution Chart
+   new Chart(document.getElementById('distributionChart'), {
+    type: 'doughnut',
+    data: {
+        labels: <?= json_encode(collection($meritDistribution)->extract('merit_type')->toArray()) ?>,
+        datasets: [{
+            data: <?= json_encode(collection($meritDistribution)->extract('total')->toArray()) ?>,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)'
+            ]
+        }]
+
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+   });
 });
 </script>
 <?php $this->end(); ?>

@@ -96,9 +96,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         My Merit
                     </a>
                     <ul class="dropdown-menu">
-                        <?= $this->Html->link('Merit Points', ['controller' => 'StudentMerits', 'action' => 'myPoints'], ['class' => 'dropdown-item']) ?> <!-- havent done yet -->
-                        <?= $this->Html->link('Activities History', ['controller' => 'Activities', 'action' => 'myActivities'], ['class' => 'dropdown-item']) ?> <!-- havent done yet -->
-                        <?= $this->Html->link('Achievements', ['controller' => 'Students', 'action' => 'achievements'], ['class' => 'dropdown-item']) ?>
+                        <?= $this->Html->link('Activities History', ['controller' => 'Activities', 'action' => 'myActivities'], ['class' => 'dropdown-item']) ?> <!-- completed -->
+                        <?= $this->Html->link('Achievements', ['controller' => 'Pages', 'action' => 'achievements'], ['class' => 'dropdown-item']) ?>
                         <div class="dropdown-divider"></div>
                         <?= $this->Html->link('Request Merit Letter', ['controller' => 'MeritLetterRequests', 'action' => 'add'], ['class' => 'dropdown-item']) ?>
                         <?= $this->Html->link('Check Request Status', ['controller' => 'MeritLetterRequests', 'action' => 'index'], ['class' => 'dropdown-item']) ?>

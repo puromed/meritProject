@@ -183,35 +183,106 @@ class PagesController extends AppController
 public function userDashboard()
     {
         $user = $this->Authentication->getIdentity();
-
-        if (!$user) {
+        
+        // Get student record
+        $student = $this->fetchTable('Students')
+            ->find()
+            ->where(['user_id' => $user->id])
+            ->first();
+        
+        if (!$student) {
+            $this->Flash->error('Student record not found.');
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
 
-        // Load data for the user dashboard
-        // For example, fetch user-specific data
-        $this->Students = $this->getTableLocator()->get('Students');
-        $this->Activities = $this->getTableLocator()->get('Activities');
-        $this->StudentMerits = $this->getTableLocator()->get('StudentMerits');
-        $this->MeritLetterRequests = $this->getTableLocator()->get('MeritLetterRequests');
+        // Get total merit points
+        $totalMerits = $this->fetchTable('StudentMerits')
+            ->find()
+            ->where(['student_id' => $student->student_id])
+            ->select(['total' => 'SUM(points)'])
+            ->first();
 
-        $data = [
-            'totalMerits' => $this->StudentMerits->find()
-            ->where(['student_id' => $user->id])
-            ->count(),
-            'recentActivities' => $this->Activities->find()
-            ->where(['merit_id' => $user->id])
-            ->order(['created' => 'DESC'])
+        // Get activities count - distinct activities
+        $activitiesCount = $this->fetchTable('StudentMerits')
+            ->find()
+            ->where(['student_id' => $student->student_id])
+            ->group(['activity_id'])
+            ->count();
+
+        // Get merit distribution by type
+        $meritDistribution = $this->fetchTable('StudentMerits')
+            ->find()
+            ->contain(['Merits'])
+            ->where(['student_id' => $student->student_id])
+            ->select([
+                'merit_type' => 'Merits.merit_type',
+                'total' => 'SUM(StudentMerits.points)'
+            ])
+            ->group('Merits.merit_type')
+            ->all();
+
+        // Get monthly progress
+        $monthlyProgress = $this->fetchTable('StudentMerits')
+            ->find()
+            ->where([
+                'student_id' => $student->student_id,
+                'created >=' => new \DateTime('-6 months')
+            ])
+            ->select([
+                'month' => 'DATE_FORMAT(StudentMerits.created, "%M %Y")',
+                'total' => 'SUM(StudentMerits.points)'
+            ])
+            ->group('month')
+            ->order(['StudentMerits.created' => 'ASC'])
+            ->all();
+
+        // Get recent merit history
+        $recentMerits = $this->fetchTable('StudentMerits')
+            ->find()
+            ->contain(['Activities', 'Merits'])
+            ->where(['student_id' => $student->student_id])
+            ->order(['StudentMerits.created' => 'DESC'])
             ->limit(5)
-            ->all(),
-            'letterRequests' => $this->MeritLetterRequests->find()
-            ->where(['user_id' => $user->id])
-            ->order(['created' => 'DESC'])
-            ->limit(3)
-            ->all()
-        ];
+            ->all();
 
-        $this->set(compact('user', 'data'));
+        // Get latest activity
+        $latestMerit = $this->fetchTable('StudentMerits')
+            ->find()
+            ->contain(['Activities'])
+            ->where(['student_id' => $student->student_id])
+            ->order(['StudentMerits.created' => 'DESC'])
+            ->first();
+
+        $this->set(compact('student', 'totalMerits', 'meritDistribution', 'activitiesCount',
+                           'monthlyProgress', 'recentMerits', 'latestMerit'));
+    }
+
+    // achievements
+    public function achievements()
+    {
+        $user = $this->Authentication->getIdentity();
+
+        // Get student record
+        $student = $this->fetchTable('Students')
+            ->find()
+            ->where(['user_id' => $user->id])
+            ->first();
+
+        if (!$student) {
+            $this->Flash->error('Student record not found.');
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
+
+        // Get total merit points for achievements calculation
+        $totalMerits = $this->fetchTable('StudentMerits')
+        ->find()
+        ->where(['student_id' => $student->student_id])
+        ->select(['total' => 'SUM(points)'])
+        ->first();
+
+     $totalPoints = $totalMerits ? $totalMerits->total : 0;
+
+     $this->set(compact('totalPoints'));
     }
 
 

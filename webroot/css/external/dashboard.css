@@ -17,6 +17,7 @@
 [data-bs-theme="dark"] {
     --primary-gradient: linear-gradient(135deg, #4B5563 0%, #1F2937 100%);
     --secondary-gradient: linear-gradient(135deg, #374151 0%, #111827 100%);
+    --progress-gradient: linear-gradient(135deg, #065F46 0%, #047857 100%);
     --success-gradient: linear-gradient(135deg, #065F46 0%, #047857 100%);
     --background-gradient: linear-gradient(135deg, #1F2937 0%, #111827 100%);
     --card-gradient: linear-gradient(135deg, #2C3034 0%, #212529 100%);
@@ -207,6 +208,12 @@ body {
     background: var(--primary-gradient);
     animation: progressAnimation 1.5s ease-in-out;
 }
+
+[data-bs-theme="dark"] .progress-bar {
+    background: var(--progress-gradient);
+    animation: progressAnimation 1.5s ease-in-out;
+}
+
 
 /* Welcome Section Enhancement */
 .welcome-section {

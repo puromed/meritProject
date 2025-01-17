@@ -25,6 +25,9 @@ return static function (RouteBuilder $routes) {
         // Connect '/student-merits' to StudentMerits controller
         $builder->connect('/student-merits', ['controller' => 'StudentMerits']);
 
+        // Connect '/achievements' to Pages controller's achievements action
+        $builder->connect('/achievements', ['controller' => 'Pages', 'action' => 'achievements']);
+
        
 
         /**
