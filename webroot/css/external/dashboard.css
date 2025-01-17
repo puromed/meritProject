@@ -10,14 +10,57 @@
     --text-primary: #2c3e50;
     --text-secondary: #95a5a6;
     --border-radius: 12px;
-    --card-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-    --transition: all 0.3s ease;
+
 }
+
+/* Dark mode variables */
+[data-bs-theme="dark"] {
+    --primary-gradient: linear-gradient(135deg, #4B5563 0%, #1F2937 100%);
+    --secondary-gradient: linear-gradient(135deg, #374151 0%, #111827 100%);
+    --success-gradient: linear-gradient(135deg, #065F46 0%, #047857 100%);
+    --background-gradient: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+    --card-gradient: linear-gradient(135deg, #2C3034 0%, #212529 100%);
+    --surface-color: #2C3034;
+    --text-primary: #F3F4F6;
+    --text-secondary: #D1D5DB;
+    --card-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+}
+
+[data-bs-theme="dark"] .sidebar {
+    background: var(--surface-color);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .card {
+    background: var(--card-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .list-group-item {
+    background: var(--surface-color);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+[data-bs-theme="dark"] .list-group-item:hover {
+    background: linear-gradient(135deg, rgba(75, 85, 99, 0.1) 0%, rgba(31, 41, 55, 0.1) 100%);
+}
+/* dark mode end */
+
 
 /* Body and main background */
 body {
-    background: var(--background-gradient);
+    background: var(--primary-bg);
     min-height: 100vh;
+}
+
+.flex-grow-1 {
+    background: var(--background-gradient);
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .flex-grow-1{
+    background: var(--background-gradient)
 }
 
 /* Enhanced Sidebar */
@@ -26,6 +69,7 @@ body {
     border-right: 1px solid rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 /* Enhanced Cards */
@@ -37,6 +81,11 @@ body {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+}
+
+[data-bs-theme="dark"] .card {
+    background: var(--card-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card::before {
@@ -92,7 +141,16 @@ body {
 .nav-link {
     color: var(--text-primary);
     border-radius: var(--border-radius);
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    padding: 0.75rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .nav-link {
+    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
     padding: 0.75rem 1rem;
     position: relative;
     overflow: hidden;
@@ -109,12 +167,40 @@ body {
     box-shadow: 0 4px 15px rgba(107, 115, 255, 0.3);
 }
 
+/*list group*/
+.list-group-item {
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border-color: rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .list-group-item {
+    background: var(--surface-color);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+/* Stats Cards */
+.stat-card {
+    background: var(--card-gradient);
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .stat-card {
+    background: var(--card-gradient);
+}
+
 /* Enhanced Progress Bars */
 .progress {
     height: 6px;
     border-radius: 3px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-bs-theme="dark"] .progress {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .progress-bar {
@@ -136,6 +222,21 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;
+}
+
+/*text colors*/
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/*headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+/*icons*/
+.fas, .far, .fab {
+    color: var(--text-primary);
 }
 
 /* Chart Enhancement */
@@ -220,4 +321,85 @@ body {
     .card {
         margin-bottom: 1rem;
     }
+}
+
+/*admin dashboard specific styles*/
+.dashboard-container {
+    background: var(--background-gradient);
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Welcome Card */
+.welcome-card {
+    background: var(--primary-gradient) !important;
+    transition: all 0.3s ease;
+}
+
+/* Stat Cards */
+.stat-card {
+    background: var(--card-gradient);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .stat-card {
+    background: var(--card-gradient);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Activity Table */
+.activity-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Quick Actions */
+.quick-actions .btn {
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] {
+    /* Dark mode specific overrides for admin dashboard */
+    --stat-card-bg: #2c3034;
+    --stat-card-border: rgba(255, 255, 255, 0.1);
+    --stat-icon-bg: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .stat-card {
+    background-color: var(--stat-card-bg);
+    border-color: var(--stat-card-border);
+}
+
+[data-bs-theme="dark"] .stat-icon {
+    background-color: var(--stat-icon-bg);
+}
+
+[data-bs-theme="dark"] .activity-icon {
+    background-color: var(--stat-icon-bg);
+}
+
+[data-bs-theme="dark"] .table {
+    color: var(--text-primary);
+}
+
+[data-bs-theme="dark"] .table thead th {
+    background-color: var(--secondary-bg);
+    border-color: var(--border-color);
+}
+
+[data-bs-theme="dark"] .badge {
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }

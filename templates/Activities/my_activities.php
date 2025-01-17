@@ -6,6 +6,9 @@ echo $this->Html->css([
     "external/dashboard.css"
 ], ['block' => 'css']);
 
+// custom css
+echo $this->Html->css("custom.css");
+
 
 
 // Add required JavaScript

@@ -4,18 +4,18 @@
     /* Slightly more rounded */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     /* Softer, more modern shadow */
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    background: var(--card-bg);
     /* Subtle gradient background */
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
     /* Light border */
     overflow: hidden;
     /* To contain the header's rounded corners */
 }
 
 .card-header {
-    background: linear-gradient(to right, #0d6efd, #3898ff);
+    background: var(--secondary-bg);
     /* Gradient header */
-    color: #fff;
+    color: var(--text-color);
     border-top-left-radius: 1.25rem;
     border-top-right-radius: 1.25rem;
     text-align: center;
@@ -23,6 +23,14 @@
     /* Increased padding */
     position: relative;
     /* For potential pseudo-elements */
+}
+
+[data-bs-theme="dark"] .card-rounded-4 {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-bs-theme="dark"] .card-header {
+    background: linear-gradient(to right, #1a1e21, #2c3034);
 }
 
 .card-header::before {

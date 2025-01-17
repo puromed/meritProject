@@ -1,5 +1,6 @@
 <?php 
 echo $this->Html->css("custom.css", ['block' => true]);
+echo $this->Html->css("external/dashboard.css", ['block' => true]);
 echo $this->Html->css("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
 ?>
 

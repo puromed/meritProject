@@ -7,6 +7,8 @@
 
 <!-- css file -->
 <?php 
+    echo $this->Html->css("external/dashboard.css", ['block' => true]);
+    echo $this->Html->css("custom.css");
     echo $this->Html->css("usersIndex.css") 
 ?> 
 <!-- bs css -->

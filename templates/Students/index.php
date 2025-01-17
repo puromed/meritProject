@@ -11,64 +11,114 @@
 <?php echo $this->Html->css('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 ?>
 
+<?php $this->assign('title', 'Manage Students');
+?>
 
-<div class="students index content mt-4 rounded-3">
-    <?= $this->Html->link(__('Add New Student'), ['action' => 'add'], ['class' => 'button mx-4 mt-4 float-right rounded-4']) ?>
-    <h3><?= __('Students List') ?></h3>
-    <div class="table-responsive rounded-4">
-        <table class="border-2">
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('student_id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('date_of_birth') ?></th>
-                    <th><?= $this->Paginator->sort('gender') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('phone_number') ?></th>
-                    <th><?= $this->Paginator->sort('address1') ?></th>
-                    <th><?= $this->Paginator->sort('address2') ?></th>
-                    <th><?= $this->Paginator->sort('postcode') ?></th>
-                    <th><?= $this->Paginator->sort('city') ?></th>
-                    <th><?= $this->Paginator->sort('state') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($students as $student): ?>
-                <tr>
-                    <td><?= $this->Number->format($student->student_id) ?></td>
-                    <td><?= h($student->name) ?></td>
-                    <td><?= h($student->date_of_birth) ?></td>
-                    <td><?= h($student->gender) ?></td>
-                    <td><?= h($student->email) ?></td>
-                    <td><?= h($student->phone_number) ?></td>
-                    <td><?= h($student->address1) ?></td>
-                    <td><?= h($student->address2) ?></td>
-                    <td><?= h($student->postcode) ?></td>
-                    <td><?= h($student->city) ?></td>
-                    <td><?= h($student->state) ?></td>
-                    <td><?= h($student->created) ?></td>
-                    <td><?= h($student->modified) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $student->student_id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $student->student_id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $student->student_id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->student_id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+<div class="container-fluid p-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title mb-0">Students Management</h3>
+            <?= $this->Html->link(
+                '<i class="fas fa-plus"></i> Add New Student',
+                ['action' => 'add'],
+                ['class' => 'btn btn-primary', 'escape' => false]
+            ) ?>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="studentsTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Date of Birth</th>
+                                <th>Gender</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($students as $student): ?>
+                            <tr>
+                                <td><?= h($student->student_id) ?></td>
+                                <td><?= h($student->name) ?></td>
+                                <td><?= $student->date_of_birth ? $student->date_of_birth->format('d M Y') : '-' ?></td>
+                                <td><?= h($student->gender) ?></td>
+                                <td><?= h($student->email) ?></td>
+                                <td><?= h($student->phone_number) ?></td>
+                                <td>
+                                    <?= h($student->address1) ?>
+                                    <?= $student->address2 ? ', ' . h($student->address2) : '' ?>
+                                    <br>
+                                    <?= h($student->postcode) ?> <?= h($student->city) ?>, <?= h($student->state) ?>
+                                </td>
+                                <td>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-eye"></i>',
+                                        ['action' => 'view', $student->student_id],
+                                        ['class' => 'btn btn-sm btn-outline-primary me-1', 'escape' => false]
+                                    ) ?>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-edit"></i>',
+                                        ['action' => 'edit', $student->student_id],
+                                        ['class' => 'btn btn-sm btn-outline-primary me-1', 'escape' => false]
+                                    ) ?>
+                                    <?= $this->Form->postLink(
+                                        '<i class="fas fa-trash"></i>',
+                                        ['action' => 'delete', $student->student_id],
+                                        [
+                                            'confirm' => __('Are you sure you want to delete # {0}?', $student->student_id),
+                                            'class' => 'btn btn-sm btn-outline-danger',
+                                            'escape' => false
+                                        ]
+                                    ) ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<?php $this->append('script'); ?>
+<script>
+    $(document).ready(function(){
+        $('#studentsTable').DataTable({
+            responsive: true,
+            pageLength: 10,
+            dom: '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
+            language: {
+                search: "Search records:",
+                lengthMenu: "_MENU_ records per page"
+            },
+            columns: [
+                null, // Student ID
+                null, // Name
+                null, // Date of Birth
+                null, // Gender
+                null, // Email
+                null, // Phone
+                null, // Address
+                { orderable: false } // Actions
+            ],
+            drawCallback: function() {
+                $('.btn-group .btn').addClass('rounded-pill');
+                $('.btn-outline-secondary').addClass('btn-sm');
+            },
+            classes: {
+                sWrapper: "dataTables_wrapper dt-bootstrap5",
+                sFilterInput: "form-control form-control-sm",
+                sLengthSelect: "form-select form-select-sm",
+                sProcessing: "dataTables_processing card"
+            }
+        });
+    });
+</script>
+<?php $this->end(); ?>

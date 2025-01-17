@@ -17,7 +17,7 @@
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="<?= isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true' ? 'dark' : 'light' ?>">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
@@ -35,13 +35,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <!-- jquery -->
     <?= $this->Html->script('https://code.jquery.com/jquery-3.6.0.min.js') ?>
+
+    <!-- datatable -->
+    <?= $this->Html->css('https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css') ?>
     
     <!-- custom css -->
     <!-- <?= $this->Html->css("custom.css") ?> -->
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    
 
 
 
@@ -107,18 +110,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li class="nav-item">
                     <?= $this->Html->link('My Profile', ['controller' => 'Students', 'action' => 'profile'], ['class' => 'nav-link']) ?>
                 </li>
+                
+
             <?php endif; ?>
         <?php endif; ?>
+        <div class="d-flex align-items-center">
+                    <!-- Dark mode toggle button -->
+                    <button class="btn btn-link text-white me-3" id="darkModeToggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon fs-5"></i>
+                    </button>
+        </div>
       </ul>
-
+       
       <!-- Auth Links -->
       <ul class="navbar-nav">
-        <li class="nav-item">
-            <!-- Dark mode -->
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa moon"></i>
-            </button>
-        </li>
         <?php if ($this->Identity->isLoggedIn()): ?>
             <li class="nav-item">
                 <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
@@ -144,6 +149,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
         </div>
+
+        
     </main>
     <footer class = "site-footer bg-dark text-light mt-5">
         <div class="container">
@@ -158,38 +165,46 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
     </footer>
 
-    <!--bootstrap js-->
-    <?= $this->Html->script([
+  
+
+    <<!-- Dark mode JavaScript -->
+    <?php $this->append('script'); ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                const html = document.documentElement;
+                
+                // Check for saved dark mode preference
+                const darkMode = localStorage.getItem('darkMode') === 'true';
+                if (darkMode) {
+                    html.setAttribute('data-bs-theme', 'dark');
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun fs-5"></i>';
+                }
+                
+                // Toggle dark mode
+                darkModeToggle.addEventListener('click', function() {
+                    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+                    const newTheme = isDark ? 'light' : 'dark';
+                    html.setAttribute('data-bs-theme', newTheme);
+                    localStorage.setItem('darkMode', !isDark);
+                    darkModeToggle.innerHTML = isDark ? 
+                        '<i class="fas fa-moon fs-5"></i>' : 
+                        '<i class="fas fa-sun fs-5"></i>';
+                });
+            });
+        </script>
+        <?php $this->end(); ?>
+        <!--bootstrap js-->
+      <?= $this->Html->script([
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
 ]) ?>
+    <!-- datatable -->
+    <?= $this->Html->script('https://code.jquery.com/jquery-3.7.1.min.js') ?>
+    <?= $this->Html->script('https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js') ?>
+    <?= $this->Html->script('https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js') ?>
+    <?= $this->fetch('script') ?>
 
-
-
-
- <script>
-    function toggleTheme() {
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-bs-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        html.setAttribute('data-bs-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-
-        // update icon
-        const icon = document.querySelector('.theme-toggle i');
-        icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
-    // Set Initial theme
-    document.addEventListener('DOMContentLoaded', ()=> {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-bs-theme', savedTheme);
-
-        const icon = document.querySelector('.theme-toggle i');
-        icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
- </script>
-
+    
 
 
 </body>

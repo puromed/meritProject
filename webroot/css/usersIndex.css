@@ -1,9 +1,9 @@
 body {
-    background: linear-gradient(135deg, #adbbda, #ede8f5);
+    background: var(--primary-bg);
 }
 
 .darkBlue-text {
-    color: #3d52a0;
+    color: var(--text-color);
 }
 
 h3:hover {
@@ -12,10 +12,10 @@ h3:hover {
 }
 
 .form-floating {
-    background: linear-gradient(180deg, #ede8f5, #adbbda);
+    background: var(--card-bg);
 }
 
 /* footer */
 footer {
-    background: #adbbda;
+    background: var(--secondary-bg);
 }
