@@ -125,7 +125,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <ul class="navbar-nav">
         <?php if ($this->Identity->isLoggedIn()): ?>
             <li class="nav-item">
-                <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?> <!-- completed -->
             </li>
         <?php else: ?>
             <li class="nav-item">
