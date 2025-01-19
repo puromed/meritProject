@@ -1,0 +1,44 @@
+/* Modal styles */
+.modal-content {
+    border-radius: 0.5rem;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.03);
+}
+
+.card-header {
+    background-color: rgba(0,0,0,.03);
+}
+
+/* Dark mode support */
+body.dark-mode .modal-content {
+    background-color: #2b3035;
+    color: #fff;
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .card-header {
+    background-color: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.1);
+}
+
+body.dark-mode .modal-footer {
+    border-color: rgba(255,255,255,.1);
+}
+
+body.dark-mode .card {
+    background-color: #343a40;
+    border-color: rgba(255,255,255,.1);
+}
+
+/* Definition list styles */
+dl.row dt {
+    font-weight: 600;
+    color: #6c757d;
+}
+
+body.dark-mode dl.row dt {
+    color: #adb5bd;
+}

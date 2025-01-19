@@ -7,6 +7,7 @@ use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableSchema;
 
 /**
  * Merits Model
@@ -74,7 +75,8 @@ class MeritsTable extends Table
 
         $validator
             ->numeric('points')
-            ->notEmptyString('points');
+            ->notEmptyString('points', 'Merit points are required')
+            ->greaterThanOrEqual('points', 0, 'Merit points must be 0 or greater');
 
         return $validator;
     }
@@ -91,5 +93,11 @@ class MeritsTable extends Table
         $rules->add($rules->isUnique(['merit_id']), ['errorField' => 'merit_id']);
 
         return $rules;
+    }
+
+    protected function _initializeSchema(TableSchema $schema): TableSchema
+    {
+        $schema->setColumnType('points', 'float');
+        return $schema;
     }
 }

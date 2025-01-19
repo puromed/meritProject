@@ -22,6 +22,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
+        $this->Authentication->addUnauthenticatedActions(['login']);
 
     }
 
@@ -109,8 +110,34 @@ public function logout()
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, contain: []);
-        $this->set(compact('user'));
+        $this->request->allowMethod(['get']);
+
+        try {
+            $user = $this->Users->get($id); // Fetch only user data
+
+            $response = [
+                'user' => [
+                    'id' => $user->id,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                    'created' => $user->created->format('Y-m-d H:i:s'),
+                    'modified' => $user->modified->format('Y-m-d H:i:s')
+                ]
+            ];
+
+            return $this->response->withType('application/json')
+                ->withStringBody(json_encode($response));
+
+        } catch (\Exception $e) {
+            $this->log("Error in view action: " . $e->getMessage(), 'error');
+
+            return $this->response->withType('application/json')
+                ->withStatus(500)
+                ->withStringBody(json_encode([
+                    'error' => 'Error loading user details',
+                    'message' => $e->getMessage()
+                ]));
+        }
     }
 
     /**
@@ -122,17 +149,17 @@ public function logout()
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            
-            // start database transaction
+            // Start database transaction
             $connection = ConnectionManager::get('default');
             $connection->begin();
-            
+
             try {
+                // Patch user entity
                 $user = $this->Users->patchEntity($user, $this->request->getData());
+
+                // Save user
                 if ($this->Users->save($user)) {
                     // Create corresponding student record
-
                     $studentsTable = TableRegistry::getTableLocator()->get('Students');
                     $student = $studentsTable->newEmptyEntity();
 
@@ -149,29 +176,32 @@ public function logout()
                         'city' => $this->request->getData('city'),
                         'postcode' => $this->request->getData('postcode'),
                         'state' => $this->request->getData('state'),
-                        // 'role' => $this->request->getData('role')
                     ];
 
+                    // Patch student entity
                     $student = $studentsTable->patchEntity($student, $studentData);
 
-                    if($studentsTable->save($student)){
+                    // Save student
+                    if ($studentsTable->save($student)) {
                         $connection->commit();
-                        $this->Flash->success(__('The user has been saved.'));
+                        $this->Flash->success(__('The user and student have been saved.'));
                         return $this->redirect(['action' => 'login']);
                     } else {
                         $connection->rollback();
-                        $this->Flash->error(__('The student could not be saved. Please, try again.'));
+                        $this->Flash->error(__('The student could not be saved. Errors: ') . json_encode($student->getErrors()));
                     }
+                } else {
+                    $connection->rollback();
+                    $this->Flash->error(__('The user could not be saved. Errors: ') . json_encode($user->getErrors()));
                 }
-                $this->set(compact('user'));
             } catch (\Exception $e) {
-                // Add specific error logging
                 $this->log($e->getMessage(), 'error');
                 $connection->rollback();
-                $this->Flash->error($e->getMessage());
+                $this->Flash->error(__('An error occurred: ') . $e->getMessage());
             }
         }
-           
+
+        $this->set(compact('user'));
     }
 
     /**
