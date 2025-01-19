@@ -49,8 +49,8 @@ $this->assign('title', 'My Activities');
             </li>
             <li class="nav-item mb-2">
                 <?= $this->Html->link(
-                    '<i class="fas fa-medal me-2"></i>  My Merits',
-                    ['controller' => 'StudentMerits', 'action' => 'display', 'merit'],
+                    '<i class="fas fa-medal me-2"></i>  Achievements',
+                    ['controller' => 'Pages', 'action' => 'achievements'],
                     ['class' => 'nav-link', 'escape' => false]
                 ) ?>
             </li>
