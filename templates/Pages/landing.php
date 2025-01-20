@@ -127,7 +127,7 @@ html {
 
 <div class="landing-page">
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light glass-effect sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light glass-effect sticky-top rounded-2">
         <div class="container">
             <?= $this->Html->link('Emerit', ['controller' => 'Pages', 'action' => 'landing'], ['class' => 'navbar-brand']) ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -149,7 +149,7 @@ html {
     </nav>
 
   <!-- Hero Section -->
-<section class="hero-section" style="
+<section class="hero-section rounded-4" style="
     background: url('<?= $this->Url->build('/img/convo.jpg') ?>') center center / cover no-repeat;
     color: white;
     height: 100vh;
@@ -163,12 +163,12 @@ html {
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-8">
                 <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInLeft hero-title">Track Your Academic Journey</h1>
-                <p class="lead mb-4 animate__animated animate__fadeInLeft animate__delay-1s">
+                <p class="lead mb-4 text-white animate__animated animate__fadeInLeft animate__delay-1s">
                     Transform your university experience with our comprehensive merit tracking system. Record, manage, and showcase your achievements all in one place.
                 </p>
                 <?= $this->Html->link('Get Started', ['controller' => 'Users', 'action' => 'register'], ['class' => 'btn btn-primary btn-lg px-5 py-2 rounded-pill animate__animated animate__fadeInUp animate__delay-2s']) ?>
-                <p class="mt-3 animate__animated animate__fadeIn animate__delay-3s">
-                    Already have an account? <?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'], ['class' => 'text-primary fw-bold']) ?>
+                <p class="mt-3 animate__animated animate__fadeIn animate__delay-3s text-white">
+                    Already have an account? <?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'], ['class' => 'text-white fw-bold']) ?>
                 </p>
             </div>
         </div>
