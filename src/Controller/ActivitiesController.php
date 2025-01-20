@@ -148,34 +148,16 @@ class ActivitiesController extends AppController
      */
     public function add()
     {
-        $this->Authorization->skipAuthorization(); // temporary
         $activity = $this->Activities->newEmptyEntity();
-        
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            
-            // Debug the incoming data
-            debug($data);
-            
-            // Format the date if it exists
-            if (!empty($data['activity_date'])) {
-                $date = new \DateTime($data['activity_date']);
-                $data['activity_date'] = $date->format('Y-m-d H:i:s');
-            }
-            
-            $activity = $this->Activities->patchEntity($activity, $data);
-            
-            // Debug validation errors
-            debug($activity->getErrors());
-            
+            $activity = $this->Activities->patchEntity($activity, $this->request->getData());
             if ($this->Activities->save($activity)) {
                 $this->Flash->success(__('The activity has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
         }
-        
-        $merits = $this->Activities->Merits->find('list')->all();
+        $merits = $this->Activities->Merits->find('list', ['limit' => 200])->all();
         $this->set(compact('activity', 'merits'));
     }
 
@@ -189,33 +171,17 @@ class ActivitiesController extends AppController
     public function edit($id = null)
     {
         $activity = $this->Activities->get($id, [
-            'contain' => ['Merits']
+            'contain' => [],
         ]);
-
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $data = $this->request->getData();
-            
-            // Format the date if it exists
-            if (!empty($data['activity_date'])) {
-                // Convert the datetime-local input to MySQL format
-                $date = new \DateTime($data['activity_date']);
-                $data['activity_date'] = $date->format('Y-m-d H:i:s');
-            }
-            
-            $activity = $this->Activities->patchEntity($activity, $data);
+            $activity = $this->Activities->patchEntity($activity, $this->request->getData());
             if ($this->Activities->save($activity)) {
                 $this->Flash->success(__('The activity has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
-        } else {
-            // Format the date for the datetime-local input
-            if ($activity->activity_date) {
-                $activity->activity_date = $activity->activity_date->format('Y-m-d\TH:i');
-            }
         }
-        
-        $merits = $this->Activities->Merits->find('list')->all();
+        $merits = $this->Activities->Merits->find('list', ['limit' => 200])->all();
         $this->set(compact('activity', 'merits'));
     }
 

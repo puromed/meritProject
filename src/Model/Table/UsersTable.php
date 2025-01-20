@@ -43,7 +43,15 @@ class UsersTable extends Table
         $this->setDisplayField('email');
         $this->setPrimaryKey('id');
 
+         // student association
+         $this->hasOne('Students', [
+            'foreignKey' => 'user_id',
+            'dependent' => true
+        ]);
+
         $this->addBehavior('Timestamp');
+
+       
     }
 
     /**

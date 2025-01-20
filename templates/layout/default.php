@@ -125,7 +125,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <ul class="navbar-nav">
         <?php if ($this->Identity->isLoggedIn()): ?>
             <li class="nav-item">
-                <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?> <!-- completed -->
             </li>
         <?php else: ?>
             <li class="nav-item">
@@ -151,18 +151,54 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
         
     </main>
-    <footer class = "site-footer bg-dark text-light mt-5">
-        <div class="container">
-            <div class="row py-4">
-                <div class="col-md-6">
-                    <p class="mb-0 fs-6">&copy; <?= date('Y') ?> Emerit. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-end">
-                    <p class="mb-0 fs-6">Powered by CakePHP</p>
+    <footer class="site-footer bg-dark py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Company Info -->
+            <div class="col-lg-4">
+                <h5 class="text-white mb-3">Emerit</h5>
+                <p class="text-muted mb-4">Empowering student achievements through digital merit recognition.</p>
+                <div class="social-links">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-github"></i></a>
                 </div>
             </div>
+            
+            <!-- Quick Links -->
+            <div class="col-lg-4">
+                <h5 class="text-white mb-3">Quick Links</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#" class="text-muted">About Us</a></li>
+                    <li><a href="#" class="text-muted">Contact</a></li>
+                    <li><a href="#" class="text-muted">Privacy Policy</a></li>
+                    <li><a href="#" class="text-muted">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="col-lg-4">
+                <h5 class="text-white mb-3">Contact</h5>
+                <ul class="list-unstyled text-muted">
+                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> support@emerit.com</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> (60) 123-456-789</li>
+                    <li><i class="fas fa-map-marker-alt me-2"></i> Kuala Lumpur, Malaysia</li>
+                </ul>
+            </div>
         </div>
-    </footer>
+        
+        <!-- Copyright -->
+        <div class="row mt-4 pt-3 border-top border-secondary">
+            <div class="col-md-6">
+                <p class="mb-0 text-muted">&copy; <?= date('Y') ?> Emerit. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <p class="mb-0 text-muted">Powered by CakePHP</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
   
 

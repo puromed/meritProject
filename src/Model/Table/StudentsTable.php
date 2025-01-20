@@ -43,16 +43,19 @@ class StudentsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('student_id');
 
-        $this->addBehavior('Timestamp');
-
+        // user association
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'LEFT',
+            'joinType' => 'INNER',
         ]);
 
         $this->hasMany('StudentMerits', [
             'foreignKey' => 'student_id',
         ]);
+
+        $this->addBehavior('Timestamp');
+
+
     }
 
     /**
