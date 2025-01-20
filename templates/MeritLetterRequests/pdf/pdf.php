@@ -48,14 +48,14 @@ declare(strict_types=1);
     }
 
     .uitm-logo {
-        width: 100px;
+        width: 250px;
         margin-bottom: 20px;
     }
 
     .reference-section {
         text-align: right;
         margin-bottom: 30px;
-        font-size: 12px;
+        font-size: 24px;
     }
 
     .recipient-section {
@@ -96,7 +96,7 @@ declare(strict_types=1);
     }
 
     .footer img {
-        width: 170px;
+        width: 250px;
         margin: 10px 0;
     }
 
@@ -114,7 +114,7 @@ declare(strict_types=1);
 
 <div class="container">
     <div class="header">
-        <?= $this->Html->image('surat/LogoUiTM.png', ['fullBase' => true, 'class' => 'uitm-logo']) ?>
+        <?= $this->Html->image('surat/LogoUiTM.png', ['fullBase' => true, 'class' => 'uitm-logo', 'width' => '170px']) ?>
     </div>
 
     <hr>
