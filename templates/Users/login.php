@@ -6,6 +6,20 @@
 <!-- css file -->
 <?php echo $this->Html->css("usersLogin.css") ?> 
 
+<!-- SVG Backgrounds -->
+<div class="svg-background">
+    <?php 
+        echo $this->Html->image('low-poly-grid-haikei.svg', [
+            'alt' => 'Background pattern',
+            'class' => 'svg-light'
+        ]); 
+        echo $this->Html->image('dark-low-poly-grid-haikei.svg', [
+            'alt' => 'Dark background pattern',
+            'class' => 'svg-dark'
+        ]); 
+    ?>
+</div>
+
 <div class="login-container">
     <div class="row justify-content-center align-items-center min-vh-100">
         <div class="col-md-5 col-lg-4">

@@ -190,13 +190,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="row g-4">
             <!-- Company Info -->
             <div class="col-lg-4">
-                <h5 class="text-white mb-3">Emerit</h5>
-                <p class="text-muted mb-4">Empowering student achievements through digital merit recognition.</p>
+                <h5 class="footer-heading mb-3">Emerit</h5>
+                <p class="footer-text mb-4">Empowering student achievements through digital merit recognition.</p>
                 <div class="social-links">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
                 </div>
             </div>
             

@@ -421,7 +421,7 @@ main {
 /*footer*/
 
 .site-footer p {
-    color: var(--bs-body-color);
+    color: var(--text-color-dark)!important;
     opacity: 0.8;
 }
 
@@ -437,10 +437,47 @@ main {
 .site-footer {
     flex-shrink: 0;
     padding: 1rem 0;
-    background: linear-gradient(to right, #1a1a1a, #2d3436) !important;
     width: 100%;
     position: static;
     box-shadow: none;
+    transition: background 0.3s ease;
+}
+
+[data-bs-theme="light"] .site-footer {
+    background: #ffffff;
+}
+
+[data-bs-theme="light"] .footer-heading {
+    color: #292983;
+}
+
+/* Increased specificity for light mode footer text */
+[data-bs-theme="light"] .site-footer .footer-text {
+    color: #6c757d;
+}
+
+[data-bs-theme="light"] .social-link {
+    color: #292983;
+}
+
+[data-bs-theme="dark"] .site-footer {
+    background: linear-gradient(to right, #1a1a1a, #2d3436) !important;
+}
+
+[data-bs-theme="dark"] .footer-heading {
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .footer-text {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+[data-bs-theme="dark"] .social-link {
+    color: #ffffff;
+}
+
+.social-link:hover {
+    color: var(--bs-primary);
 }
 
 .footer-links li {
@@ -448,7 +485,7 @@ main {
 }
 
 .footer-links a {
-    color: #6c757d;
+    color: #f1f1f1;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -485,7 +522,7 @@ main {
 }
 
 [data-bs-theme="dark"] .footer-links a {
-    color: #8f9498;
+    color: #e5e9ec;
 }
 
 [data-bs-theme="dark"] .footer-links a:hover {
@@ -733,4 +770,39 @@ main {
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+/* Modern Footer Styles */
+.site-footer {
+    flex-shrink: 0;
+    padding: 1rem 0;
+    background: linear-gradient(to right, #1a1a1a, #2d3436) !important;
+    width: 100%;
+    position: static;
+    box-shadow: none;
+}
+
+.footer-heading {
+    color: #ffffff;
+}
+
+.footer-text {
+    color: #6c757d;
+}
+
+.social-link {
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--bs-primary);
+}
+
+[data-bs-theme="light"] .footer-text {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+[data-bs-theme="dark"] .footer-text {
+    color: rgba(255, 255, 255, 0.6);
 }

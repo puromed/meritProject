@@ -1,69 +1,129 @@
 /* Root variables for light/dark mode */
 :root {
     --login-bg: #f5f8fe;
-    --card-bg: #ffffff;
-    --text-color: #2c3e50;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-color: #292983;
     --input-bg: #ffffff;
-    --input-border: #e2e8f0;
+    --input-text: #000000;
+    --input-border: rgba(0, 0, 0, 0.1);
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 [data-bs-theme="dark"] {
     --login-bg: #1a1e23;
-    --card-bg: #2c3034;
-    --text-color: #e2e8f0;
-    --input-bg: #1a1e23;
-    --input-border: #404750;
+    --card-bg: rgba(33, 37, 41, 0.95);
+    --text-color: #ffffff;
+    --input-bg: #2b3035;
+    --input-text: #ffffff;
+    --input-border: rgba(255, 255, 255, 0.1);
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Body and container */
 body {
+    position: relative;
     background-color: var(--login-bg);
     min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease;
 }
 
+/* SVG Background */
+.svg-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.svg-background img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.svg-light {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.svg-dark {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+[data-bs-theme="dark"] .svg-light {
+    opacity: 0;
+}
+
+[data-bs-theme="dark"] .svg-dark {
+    opacity: 1;
+}
+
+/* Login Container */
 .login-container {
-    min-height: calc(100vh - 56px); /* Adjust for navbar height */
-    padding: 2rem 1rem;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
-/* Card styling */
+/* Card Styling */
 .card {
     background: var(--card-bg);
-    border: 1px solid var(--input-border);
+    backdrop-filter: blur(10px);
+    border: none;
     box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
 }
 
 .card-header {
-    background: transparent;
-    border-bottom: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
 }
 
-/* Form styling */
-.form-label {
-    color: var(--text-color);
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
+/* Form Controls */
 .form-control {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--text-color);
-    padding: 0.75rem 1rem;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--input-border);
+    transition: all 0.3s ease;
 }
 
 .form-control:focus {
-    background: var(--input-bg);
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    color: var(--text-color);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--text-color);
+    box-shadow: 0 0 0 0.2rem rgba(41, 41, 131, 0.25);
 }
+
+.form-label {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Text Styling */
+.darkBlue-text {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Footer */
+
 
 /* Button styling */
 .btn-primary {
-    background: #0d6efd;
+    background-color: #292983;
     border: none;
     padding: 0.75rem 1.5rem;
     font-weight: 500;
@@ -71,16 +131,9 @@ body {
 }
 
 .btn-primary:hover {
-    background: #0b5ed7;
-    transform: translateY(-1px);
+    background-color: #1e1e66;
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
-}
-
-/* Text styling */
-.darkBlue-text {
-    color: var(--text-color);
-    font-size: 1.75rem;
-    font-weight: 600;
 }
 
 /* Flash messages */
@@ -109,7 +162,7 @@ body {
     }
     
     .card {
-        margin: 0;
+        margin: 1rem;
     }
 }
 

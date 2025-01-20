@@ -3,7 +3,7 @@ $this->Html->css([
     'landing/main',
     'landing/animations',
     'landing/dark-mode',
-    'external/landing'
+    'external/landing',
 ], ['block' => true]);
 
 // Load external CDN resources
@@ -73,11 +73,11 @@ $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/anima
     </nav>
 
   <!-- Hero Section -->
-<div class="hero-section">
-    <div class="container">
+<div class="hero-section-wrapper">
+    <div class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-title">Welcome to Maradock</h1>
-            <p class="hero-subtitle">Your one-stop student hub for managing courses, assignments, and academic progress</p>
+            <h1 class="hero-title">Welcome to Emerit</h1>
+            <p class="hero-subtitle">Empowering student achievements through digital merit recognition.</p>
             <div class="hero-cta">
                 <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']) ?>" 
                    class="btn btn-light btn-lg me-3">
@@ -92,7 +92,7 @@ $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/anima
     </div>
     
     <!-- Shape Divider -->
-    <div class="custom-shape-divider-bottom">
+    <div class="custom-shape-divider">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
                   class="shape-fill"></path>
