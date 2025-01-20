@@ -46,35 +46,99 @@ class MeritLetterRequestsController extends AppController
     {
         $this->Authorization->skipAuthorization();
         $meritLetterRequest = $this->MeritLetterRequests->newEmptyEntity();
+        
+        // Get current user
+        $user = $this->Authentication->getIdentity();
+        
+        // Get student record
+        $student = $this->fetchTable('Students')
+            ->find()
+            ->where(['user_id' => $user->id])
+            ->first();
 
-        // check if user has a pending or approved request
+        if (!$student) {
+            $this->Flash->error(__('Student record not found.'));
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+        }
+
+        // Check if student already has a pending request
         $existingRequest = $this->MeritLetterRequests->find()
-             ->where([
-                'MeritLetterRequests.user_id' => $this->Authentication->getIdentity()->get('id'),
-                'MeritLetterRequests.status IN' => ['pending', 'approved']
+            ->where([
+                'student_id' => $student->student_id,
+                'status' => 'pending'
             ])
             ->first();
 
         if ($existingRequest) {
-                $this->Flash->error(__('You already have a pending or approved request.'));
-                return $this->redirect(['action' => 'index']);
-            }
-
+            $this->Flash->error(__('You already have a pending merit letter request.'));
+            return $this->redirect(['action' => 'index']);
+        }
 
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $data['status'] = 'pending';
-            $data['user_id'] = $this->Authentication->getIdentity()->get('id');
+            $data = [
+                'student_id' => $student->student_id,
+                'user_id' => $user->id,
+                'status' => 'pending',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s')
+            ];
+
             $meritLetterRequest = $this->MeritLetterRequests->patchEntity($meritLetterRequest, $data);
             
             if ($this->MeritLetterRequests->save($meritLetterRequest)) {
                 $this->Flash->success(__('Your merit letter request has been submitted.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('Unable to submit request. Please try again.'));
+            $this->Flash->error(__('The merit letter request could not be saved. Please, try again.'));
+            // Debug information
+            debug($meritLetterRequest->getErrors());
         }
-        $students = $this->MeritLetterRequests->Students->find('list', limit: 200)->all();
-        $this->set(compact('meritLetterRequest', 'students'));
+
+        $this->set(compact('meritLetterRequest', 'student'));
+    }
+
+    // public function edit pending request - redundant as there is only user who they can choose, not much to edit.
+    // public function edit($id = null) {
+    //     $this->Authorization->skipAuthorization();
+    //     $meritLetterRequest = $this->MeritLetterRequests->get($id, [
+    //         'contain' => []
+    //     ]);
+
+    //     // Only allow editing of pending requests
+    //     if ($meritLetterRequest->status !== 'pending') {
+    //         $this->Flash->error(__('Only pending requests can be edited.'));
+    //         return $this->redirect(['action' => 'index']);
+    //     }
+
+    //     if ($this->request->is(['patch','post', 'put'])) {
+    //         $meritLetterRequest = $this->MeritLetterRequests->patchEntity($meritLetterRequest, $this->request->getData());
+    //         if ($this->MeritLetterRequests->save($meritLetterRequest)) {
+    //             $this->Flash->success(__('Your request has been updated.'));
+    //             return $this->redirect(['action' => 'index']);
+    //         }
+    //         $this->Flash->error(__('Unable to update your request. Please try again.'));
+    //     }
+    //     $this->Flash->error(__('The merit letter request could not be updated. Please, try again.'));
+    // }
+
+    // public function delete
+    public function delete($id = null) {
+        $this->Authorization->skipAuthorization();
+        $this->request->allowMethod(['post', 'delete']);
+        $meritLetterRequest = $this->MeritLetterRequests->get($id);
+
+        // Only allow deletion of pending requests
+        if ($meritLetterRequest->status !== 'pending') {
+            $this->Flash->error(__('Only pending requests can be deleted.'));
+            return $this->redirect(['action' => 'index']);
+        }
+
+        if ($this->MeritLetterRequests->delete($meritLetterRequest)) {
+            $this->Flash->success(__('The request has been deleted.'));
+        } else {
+            $this->Flash->error(__('Could not delete the request.'));
+        }
+        return $this->redirect(['action' => 'index']);
     }
 
     public function adminIndex()

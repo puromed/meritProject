@@ -39,31 +39,37 @@ $this->assign('title', h($activity->activity_name));
             </div>
 
             <div class="d-flex justify-content-between">
-                <?= $this->Html->link(
-                    '<i class="fa fa-arrow-left"></i> Back to Activities',
-                    ['action' => 'index'],
-                    ['class' => 'btn btn-secondary', 'escape' => false]
-                ) ?>
-
                 <?php if ($this->Identity->get('role') === 'admin'): ?>
-                <div>
                     <?= $this->Html->link(
-                        '<i class="fa fa-pencil"></i> Edit',
-                        ['action' => 'edit', $activity->activity_id],
-                        ['class' => 'btn btn-primary', 'escape' => false]
+                        '<i class="fa fa-arrow-left"></i> Back to Activities',
+                        ['action' => 'index'],
+                        ['class' => 'btn btn-secondary', 'escape' => false]
                     ) ?>
-                    <?= $this->Form->postLink(
-                        '<i class="fa fa-trash"></i> Delete',
-                        ['action' => 'delete', $activity->id],
-                        ['class' => 'btn btn-danger', 'escape' => false]
+                    <div>
+                        <?= $this->Html->link(
+                            '<i class="fa fa-pencil"></i> Edit',
+                            ['action' => 'edit', $activity->activity_id],
+                            ['class' => 'btn btn-primary', 'escape' => false]
+                        ) ?>
+                        <?= $this->Form->postLink(
+                            '<i class="fa fa-trash"></i> Delete',
+                            ['action' => 'delete', $activity->id],
+                            ['class' => 'btn btn-danger', 'escape' => false]
+                        ) ?>
+                    </div>
+                <?php else: ?>
+                    <?= $this->Html->link(
+                        '<i class="fa fa-arrow-left"></i> Back to Activities',
+                        ['action' => 'available'],
+                        ['class' => 'btn btn-secondary', 'escape' => false]
                     ) ?>
-                </div>
-                <?php elseif ($activity->status === 'open'): ?>
-                    <?= $this->Form->postLink(
-                        '<i class="fa fa-check"></i> Join Activity',
-                        ['action' => 'join', $activity->activity_id],
-                        ['class' => 'btn btn-success', 'escape' => false]
-                    ) ?>
+                    <?php if ($activity->status === 'open'): ?>
+                        <?= $this->Form->postLink(
+                            '<i class="fa fa-check"></i> Join Activity',
+                            ['action' => 'join', $activity->activity_id],
+                            ['class' => 'btn btn-success', 'escape' => false]
+                        ) ?>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

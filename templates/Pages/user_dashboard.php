@@ -60,7 +60,9 @@ echo $this->Html->script([
         <div class="container-fluid p-4">
             <!-- Welcome Section -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0">Welcome back, <?= h($student->name ?? 'Student') ?></h2>
+                <h2 class="mb-0">
+                    <span id="welcomeMessage" class="me-1"></span>, <?= h($student->name ?? 'Student') ?>
+                </h2>
                 <div class="text-muted">Last login: <?= date('d M Y') ?></div>
             </div>
 
@@ -251,6 +253,84 @@ echo $this->Html->script([
         </div>
     </div>
 </div>
+
+
+<!-- Greeting message -->
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        // Arrays of greetings for different times of the day
+        const morningGreetings = [
+            "Good morning",
+            "Don't go hollow,",
+            "Welcome back",
+            "Good day",
+            "Frail Limb Nursery"
+        ];
+
+        const afternoonGreetings = [
+            "Good afternoon",
+            "Hello there",
+            "Been Busy?",
+
+        ];
+
+        const eveningGreetings = [
+            "Good evening",
+            "Salutations",
+            "Wrapping up for today",
+            "Rage against the dying of the light"
+        ];
+
+        function getRandomGreeting() {
+            const hour = new Date().getHours();
+            let greetings = [];
+
+            if (hour < 12) {
+                greetings = morningGreetings;
+            } else if (hour < 17) {
+                greetings = afternoonGreetings;
+            } else {
+                greetings = eveningGreetings;
+            }
+
+            const randomIndex = Math.floor(Math.random() * greetings.length);
+            return greetings[randomIndex];
+        }
+
+        // Get the welcome message element
+        const welcomeElement = document.getElementById('welcomeMessage');
+
+        // Set initial greeting with fade-in animation
+        welcomeElement.style.opacity = 0;
+        welcomeElement.textContent = getRandomGreeting();
+
+        // Fade in the greeting
+        setTimeout(() =>{
+            welcomeElement.style.transition = 'opacity 0.5s ease-in-out';
+            welcomeElement.style.opacity = '1';
+        }, 100);
+    });
+</script>
+
+<!-- css -->
+<style>
+   #welcomeMessage {
+        display: inline-block;
+        min-width: 150px;
+        color: var(--bs-body-color); /* Use Bootstrap's body color variable */
+    }
+
+    /* Remove the media query and use Bootstrap's theme attribute */
+    [data-bs-theme="dark"] #welcomeMessage {
+        color: var(--bs-light);
+    }
+
+    h2 {
+        color: inherit !important;
+    }
+
+   
+</style>
 
 <!-- Chart initialization -->
  <?php $this->Html->script('https://cdn.jsdelivr.net/npm/chart.js', ['block' => true]); ?>

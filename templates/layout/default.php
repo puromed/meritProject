@@ -145,7 +145,41 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </nav>
     <main class="main">
         <div class="container">
-            <?= $this->Flash->render() ?>
+            <div class="flash-messages">
+                <?php
+                $flashMessages = $this->Flash->render();
+                if ($flashMessages):
+                    $dom = new DOMDocument();
+                    $dom->loadHTML(mb_convert_encoding($flashMessages, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                    $messages = $dom->getElementsByTagName('div');
+                    
+                    foreach ($messages as $message):
+                        $messageText = $message->textContent;
+                        $class = $message->getAttribute('class');
+                        $type = strpos($class, 'success') !== false ? 'success' : 
+                               (strpos($class, 'error') !== false ? 'danger' : 
+                               (strpos($class, 'warning') !== false ? 'warning' : 'info'));
+                ?>
+                    <div class="alert alert-<?= $type ?> alert-dismissible fade show" role="alert">
+                        <div class="d-flex align-items-center">
+                            <?php if ($type === 'success'): ?>
+                                <i class="fas fa-check-circle me-2"></i>
+                            <?php elseif ($type === 'danger'): ?>
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                            <?php elseif ($type === 'warning'): ?>
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                            <?php else: ?>
+                                <i class="fas fa-info-circle me-2"></i>
+                            <?php endif; ?>
+                            <?= $messageText ?>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php 
+                    endforeach;
+                endif; 
+                ?>
+            </div>
             <?= $this->fetch('content') ?>
         </div>
 

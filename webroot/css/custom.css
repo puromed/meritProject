@@ -2,6 +2,7 @@
     --primary-bg: #eaf1fe;
     --secondary-bg: #adbbda;
     --text-color: #212529;
+    --text-color-dark: #ffffff;
     --card-bg: #ffffff;
     --table-header-bg: #adbbda;
     --table-stripe-bg: #f2f2f2;
@@ -14,7 +15,7 @@
 [data-bs-theme="dark"] {
     --primary-bg: #212529;
     --secondary-bg: #343a40;
-    --text-color: #fff;
+    --text-color: #ffffff;
     --card-bg: #2c3034;
     --table-header-bg: #495057;
     --table-stripe-bg: #343a40;
@@ -423,7 +424,7 @@ main {
 /*footer*/
 
 .site-footer p {
-    color: #ffffff;
+    color: var(--bs-body-color);
     opacity: 0.8;
 }
 
@@ -479,6 +480,11 @@ main {
 /* Dark mode compatibility */
 [data-bs-theme="dark"] .site-footer {
     background: linear-gradient(to right, #0f0f0f, #1a1a1a) !important;
+}
+
+[data-bs-theme="dark"] .site-footer p {
+    color: #ffffff;
+    opacity: 0.8;
 }
 
 [data-bs-theme="dark"] .footer-links a {
@@ -657,4 +663,77 @@ main {
 /* Card shadows */
 [data-bs-theme="dark"] .shadow-sm {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Flash messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.alert {
+    margin-bottom: 1rem;
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.alert.fade.show {
+    opacity: 1;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.alert-info {
+    background-color: #cff4fc;
+    color: #055160;
+}
+
+/* Dark mode support */
+[data-bs-theme="dark"] .alert-success {
+    background-color: #0f5132;
+    color: #d1e7dd;
+}
+
+[data-bs-theme="dark"] .alert-danger {
+    background-color: #842029;
+    color: #f8d7da;
+}
+
+[data-bs-theme="dark"] .alert-warning {
+    background-color: #664d03;
+    color: #fff3cd;
+}
+
+[data-bs-theme="dark"] .alert-info {
+    background-color: #055160;
+    color: #cff4fc;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
