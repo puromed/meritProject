@@ -11,7 +11,7 @@
         "cakephp/cakephp": "5.1.*",
         "cakephp/migrations": "^4.0.0",
         "cakephp/plugin-installer": "^2.0",
-        "dompdf/dompdf": "^3.0",
+        "dompdf/dompdf": "^3.1",
         "friendsofcake/cakepdf": "5.0",
         "friendsofcake/search": "^7.1",
         "mobiledetect/mobiledetectlib": "^4.8.03"
