@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 27, 2024 at 01:30 PM
+-- Generation Time: Jan 20, 2025 at 10:01 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -44,8 +44,10 @@ CREATE TABLE `activities` (
 --
 
 INSERT INTO `activities` (`activity_id`, `activity_name`, `description`, `activity_date`, `location`, `availability`, `merit_id`, `created`, `modified`) VALUES
-(1, 'Sports Carnival 2024', 'Annual sports event featuring competitive sports such as track running, pole jumping, marathon and so on. Tie up those shoelaces and get ready to invigorate your body and moves towards excellence!', '2024-12-28 09:00:00', 'Main Sports Complex', 'open', 2, '2024-12-26 14:28:43', '2024-12-26 14:28:43'),
-(2, 'Test2', 'Lorem', '2024-12-31 10:00:00', 'Hall2', 'open', 1, '2024-12-26 11:30:47', '2024-12-26 11:32:01');
+(1, 'Sports Carnival 2024', 'Annual sports event featuring competitive sports such as track running, pole jumping, marathon and so on. Tie up those shoelaces and get ready to invigorate your body and moves towards excellence!', '2024-12-28 09:00:00', 'Main Sports Complex', 'open', 12, '2024-12-26 14:28:43', '2024-12-26 14:28:43'),
+(2, 'Activity2', 'Lorem', '2024-12-31 10:00:00', 'Hall2', 'open', 11, '2024-12-26 11:30:47', '2025-01-18 14:05:04'),
+(5, 'Open Day', 'Day that is open', '2025-01-20 10:00:00', 'Main Hall', 'open', 10, '2025-01-19 09:36:26', '2025-01-19 09:38:36'),
+(7, 'Marhaban', 'asdbahskashdashkj', '2025-01-21 10:00:00', 'Sport hall', 'open', 11, '2025-01-19 15:02:41', '2025-01-19 15:02:41');
 
 -- --------------------------------------------------------
 
@@ -67,8 +69,9 @@ CREATE TABLE `merits` (
 --
 
 INSERT INTO `merits` (`merit_id`, `merit_type`, `description`, `points`, `created`, `modified`) VALUES
-(1, 'Curricular activities', 'Activities that is part of the institution curriculum and result in grades or credits', 0.7, '2024-12-26 06:25:05', '2024-12-26 06:25:05'),
-(2, 'Extracuricular Activities', 'Activities that is separated from the core concept of the institutions.', 0.85, '2024-12-26 06:32:18', '2024-12-26 06:32:18');
+(10, 'extra', 'things you do for fun', 4, '2025-01-19 09:26:08', '2025-01-19 09:35:31'),
+(11, 'Curricular activities', 'Activities that is part of the institution curriculum and result in grades or credits', 2, '2024-12-26 06:25:05', '2025-01-19 09:35:39'),
+(12, 'Extracuricular Activities', 'Activities that is separated from the core concept of the institutions.', 0.85, '2024-12-26 06:32:18', '2024-12-26 06:32:18');
 
 -- --------------------------------------------------------
 
@@ -90,7 +93,8 @@ CREATE TABLE `merit_letter_requests` (
 --
 
 INSERT INTO `merit_letter_requests` (`id`, `student_id`, `status`, `created`, `modified`, `user_id`) VALUES
-(1, '2024123456', 'approved', '2024-12-23 16:26:34', '2024-12-23 16:36:06', 6);
+(1, '2024123456', 'approved', '2024-12-23 16:26:34', '2024-12-23 16:36:06', 6),
+(3, '2024542298', 'approved', '2025-01-20 12:42:18', '2025-01-20 17:28:48', 7);
 
 -- --------------------------------------------------------
 
@@ -111,13 +115,8 @@ CREATE TABLE `phinxlog` (
 --
 
 INSERT INTO `phinxlog` (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES
-(20241211105630, 'CreateTablesInitial', '2024-12-11 11:18:45', '2024-12-11 11:18:45', 0),
-(20241213080058, 'Initial', '2024-12-13 08:00:58', '2024-12-13 08:00:58', 0),
-(20241220065447, 'CreateMeritLetterRequests', '2024-12-20 07:15:45', '2024-12-20 07:15:45', 0),
-(20241220141537, 'UpdatedMigration', '2024-12-20 14:20:53', '2024-12-20 14:20:53', 0),
-(20241221173121, 'Initial', '2024-12-21 17:31:21', '2024-12-21 17:31:21', 0),
-(20241221173214, 'Initial', '2024-12-21 17:32:14', '2024-12-21 17:32:14', 0),
-(20241227132537, 'Initial', '2024-12-27 13:25:37', '2024-12-27 13:25:37', 0);
+(20241227132537, 'Initial', '2024-12-27 13:33:16', '2024-12-27 13:33:16', 0),
+(20250120215807, 'Initial', '2025-01-20 21:58:07', '2025-01-20 21:58:07', 0);
 
 -- --------------------------------------------------------
 
@@ -147,7 +146,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `user_id`, `name`, `date_of_birth`, `gender`, `email`, `phone_number`, `address1`, `address2`, `postcode`, `city`, `state`, `created`, `modified`) VALUES
-('2024123456', 6, 'puro', '2003-10-03', 'Male', 'puro@localhost.com', '01111111', 'Jalan Persiaran', 'pinggiran', '45000', 'Shah Alam', 'Selangor', '2024-12-21 17:26:15', '2024-12-21 17:26:15');
+('2024123456', 6, 'puro', '2003-10-03', 'Male', 'puro@localhost.com', '011234567', 'Jalan Persiaran', 'pinggiran', '45000', 'Shah Alam', 'Selangor', '2024-12-21 17:26:15', '2025-01-19 09:12:58'),
+('2024542298', 7, 'Thomas Muller', '2004-02-07', 'Male', 'munich@localhost.com', '01121101067', 'no.17, Jalan Setia Murni 1/12', 'Setia Alam', '40170', 'Shah Alam', 'Selangor', '2025-01-20 11:05:32', '2025-01-20 11:05:32');
 
 -- --------------------------------------------------------
 
@@ -171,7 +171,12 @@ CREATE TABLE `student_merits` (
 --
 
 INSERT INTO `student_merits` (`student_merit_id`, `student_id`, `merit_id`, `Date_Received`, `created`, `modified`, `activity_id`, `points`) VALUES
-(0, '2024123456', 2, '2024-12-26', '2024-12-26 14:05:44', '2024-12-26 14:05:44', 1, 0.85);
+(1, '2024123456', 12, '2024-12-26', '2024-12-26 14:05:44', '2024-12-26 14:05:44', 1, 0.85),
+(2, '2024123456', 10, '2025-01-19', '2025-01-19 09:44:13', '2025-01-19 09:44:13', 5, 4),
+(3, '2024123456', 11, '2025-01-19', '2025-01-19 15:04:06', '2025-01-19 15:04:06', 7, 2),
+(4, '2024542298', 11, '2025-01-20', '2025-01-20 11:06:38', '2025-01-20 11:06:38', 2, 2),
+(5, '2024542298', 11, '2025-01-20', '2025-01-20 11:07:03', '2025-01-20 11:07:03', 7, 2),
+(6, '2024542298', 12, '2025-01-20', '2025-01-20 11:32:32', '2025-01-20 11:32:32', 1, 0.85);
 
 -- --------------------------------------------------------
 
@@ -194,9 +199,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `role`, `created`, `modified`) VALUES
 (3, 'test123@localhost.com', '$2y$10$jfaNnIrff1Abi8L182WxHOA.iZbfl9.vN2Y7ne2yiL.aLEhkruGF.', 'admin', '2024-12-11 11:35:51', '2024-12-11 11:35:51'),
-(4, 'cuba@localhost.com', '$2y$10$3q7/CkArQvrAgQ0kvZzpDuJOujxZiOyzE52JXD3br6JJJMg5pfMfW', 'user', '2024-12-11 11:36:14', '2024-12-11 11:36:14'),
 (5, 'boo@localhost.com', '$2y$10$uwt1.lcOPgogG0WKkFkdkuVEJzwRUQ78z4SFArHQS2oN7A3DDw.EC', 'user', '2024-12-18 18:17:36', '2024-12-18 18:17:36'),
-(6, 'puro@localhost.com', '$2y$10$nqwE3FBV2TcsZW1kNQXMuOntdMj7HfGbzZOrHN4ixtlNA3Jfi8THW', 'user', '2024-12-21 17:26:15', '2024-12-21 17:26:15');
+(6, 'puro@localhost.com', '$2y$10$nqwE3FBV2TcsZW1kNQXMuOntdMj7HfGbzZOrHN4ixtlNA3Jfi8THW', 'user', '2024-12-21 17:26:15', '2024-12-21 17:26:15'),
+(7, 'munich@localhost.com', '$2y$10$eH6CSoSAnFPhWSo15kRX7e9LMDFufnnBYAMOcvonJ5rHtb1EfddI2', 'user', '2025-01-20 11:05:32', '2025-01-20 11:05:32');
 
 --
 -- Indexes for dumped tables
@@ -263,19 +268,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `activity_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `activity_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `merits`
+--
+ALTER TABLE `merits`
+  MODIFY `merit_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `merit_letter_requests`
 --
 ALTER TABLE `merit_letter_requests`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `student_merits`
+--
+ALTER TABLE `student_merits`
+  MODIFY `student_merit_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

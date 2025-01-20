@@ -41,5 +41,8 @@ class AppView extends View
 
         //add IdentityHelper
         $this->loadHelper('Authentication.Identity');
+
+        // Set default title
+        $this->set('title', 'Emerit - Student Merit System');
     }
 }

@@ -129,6 +129,7 @@ class Initial extends BaseMigration
 
         $this->table('merits', ['id' => false, 'primary_key' => ['merit_id']])
             ->addColumn('merit_id', 'integer', [
+                'autoIncrement' => true,
                 'default' => null,
                 'limit' => null,
                 'null' => false,
@@ -173,6 +174,7 @@ class Initial extends BaseMigration
 
         $this->table('student_merits', ['id' => false, 'primary_key' => ['student_merit_id']])
             ->addColumn('student_merit_id', 'integer', [
+                'autoIncrement' => true,
                 'default' => null,
                 'limit' => null,
                 'null' => false,
