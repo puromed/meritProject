@@ -217,7 +217,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <ul class="list-unstyled text-muted">
                     <li class="mb-2"><i class="fas fa-envelope me-2"></i> support@emerit.com</li>
                     <li class="mb-2"><i class="fas fa-phone me-2"></i> (60) 123-456-789</li>
-                    <li><i class="fas fa-map-marker-alt me-2"></i> Kuala Lumpur, Malaysia</li>
+                    <li><i class="fas fa-map-marker-alt me-2"></i> Puncak Perdana, Malaysia</li>
                 </ul>
             </div>
         </div>
