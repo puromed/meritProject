@@ -1,94 +1,18 @@
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') ?>
-<?= $this->Html->css('external/landing.css') ?>
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css') ?>
+<?php
+$this->Html->css([
+    'landing/main',
+    'landing/animations',
+    'landing/dark-mode',
+    'external/landing'
+], ['block' => true]);
+
+// Load external CDN resources
+$this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css', ['block' => true]);
+$this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ['block' => true]);
+?>
 
 <style>
-/* Default color for the title */
-.hero-title {
-    color: while;
-}
 
-/* Force the text color to white in dark mode */
-@media (prefers-color-scheme: dark) {
-    .hero-title {
-        color: white !important;
-    }
-}
-
-/* Smooth Scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Feature Card Hover Effects */
-.feature-card {
-    text-align: center;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.feature-icon i {
-    font-size: 40px;
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-/* Stats Section Counter */
-.stats-section .glass-effect {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* How It Works Step Number */
-.step-number {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 50%;
-    line-height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    transition: transform 0.3s;
-}
-
-.text-center:hover .step-number {
-    transform: scale(1.2);
-}
-
-/* CTA Section */
-.cta-section {
-    background: linear-gradient(135deg, #007bff, #6c63ff);
-    color: #fff;
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.cta-section .btn-primary {
-    background: #fff;
-    color: #007bff;
-    border: none;
-    font-size: 18px;
-    padding: 10px 30px;
-    border-radius: 50px;
-    transition: background 0.3s, color 0.3s;
-}
-
-.cta-section .btn-primary:hover {
-    background: #007bff;
-    color: #fff;
-}
 
 /* Preloader */
 #preloader {
@@ -149,31 +73,32 @@ html {
     </nav>
 
   <!-- Hero Section -->
-<section class="hero-section rounded-4" style="
-    background: url('<?= $this->Url->build('/img/convo.jpg') ?>') center center / cover no-repeat;
-    color: white;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    margin-bottom: 50px;">
+<div class="hero-section">
     <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-lg-8">
-                <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInLeft hero-title">Track Your Academic Journey</h1>
-                <p class="lead mb-4 text-white animate__animated animate__fadeInLeft animate__delay-1s">
-                    Transform your university experience with our comprehensive merit tracking system. Record, manage, and showcase your achievements all in one place.
-                </p>
-                <?= $this->Html->link('Get Started', ['controller' => 'Users', 'action' => 'register'], ['class' => 'btn btn-primary btn-lg px-5 py-2 rounded-pill animate__animated animate__fadeInUp animate__delay-2s']) ?>
-                <p class="mt-3 animate__animated animate__fadeIn animate__delay-3s text-white">
-                    Already have an account? <?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'], ['class' => 'text-white fw-bold']) ?>
-                </p>
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Maradock</h1>
+            <p class="hero-subtitle">Your one-stop student hub for managing courses, assignments, and academic progress</p>
+            <div class="hero-cta">
+                <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']) ?>" 
+                   class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register']) ?>" 
+                   class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Sign Up
+                </a>
             </div>
         </div>
     </div>
-</section>
+    
+    <!-- Shape Divider -->
+    <div class="custom-shape-divider-bottom">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+                  class="shape-fill"></path>
+        </svg>
+    </div>
+</div>
 
 <!-- Features Section -->
 <section class="features-section" style="padding-top: 50px;">

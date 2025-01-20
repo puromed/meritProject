@@ -8,71 +8,12 @@ declare(strict_types=1);
  */
 ?>
 <style>
-    @media print {
-        @page {
-            size: A4;
-            margin: 0px;
-            padding: 0px;
-        }
-    }
+  @page {
+    margin: 0px 0px 0px 0px !important;
+    padding: 0px 0px 0px 0px !important;
+  }
 
-    body {
-        font-size: 12pt;
-    }
-
-    .a4-container {
-        width: calc(210mm - 40px);
-        min-height: 297mm;
-        border: 1px solid #ccc;
-        padding: 20mm;
-        padding: 40mm 20mm; /* Adjust padding as needed */
-        box-shadow: none;
-    }
-
-    .header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .header h2 {
-        margin-bottom: 5px;
-    }
-
-    .header small {
-        display: block;
-    }
-
-    .recipient-info p {
-        margin-bottom: 2px;
-    }
-
-    .body-text {
-        font-family: 'Times New Roman', serif;
-        text-align: justify;
-    }
-
-    .body-text p {
-        margin-bottom: 10px;
-    }
-
-    .body-text table {
-        width: auto;
-        margin: 20px 0;
-        border-collapse: collapse;
-    }
-
-    .body-text table td {
-        padding: 5px;
-        border: 1px solid #000;
-    }
-
-    .closing {
-        margin-top: 30px;
-    }
-
-    .closing p {
-        margin-bottom: 2px;
-    }
+  
 </style>
 
 <div class="a4-container">

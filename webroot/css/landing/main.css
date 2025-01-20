@@ -1,0 +1,94 @@
+/* Base Styles */
+:root {
+    --gradient-1: #2193b0;
+    --gradient-2: #6dd5ed;
+    --gradient-3: #4e54c8;
+    --text-primary: #2c3e50;
+    --text-secondary: #34495e;
+    --bg-light: #ffffff;
+    --bg-dark: #1a202c;
+    --transition-speed: 0.3s;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(-45deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+    background-size: 400% 400%;
+    animation: gradientFlow 15s ease infinite;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Shape Divider */
+.custom-shape-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 80px; /* Reduced height for better proportion */
+}
+
+.custom-shape-divider .shape-fill {
+    fill: var(--bg-light);
+}
+
+[data-bs-theme="dark"] .custom-shape-divider .shape-fill {
+    fill: var(--bg-dark);
+}
+
+/* Ensure content is centered */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    color: var(--bg-light);
+    text-align: center;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards 0.2s;
+}
+
+.hero-cta {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards 0.4s;
+}

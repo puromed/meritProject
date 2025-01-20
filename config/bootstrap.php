@@ -204,16 +204,28 @@ ServerRequest::addDetector('tablet', function ($request) {
         'className' => 'CakePdf.DomPdf',
         'options' => [
             'isRemoteEnabled' => true,
+            'isHtml5ParserEnabled' => true,
+            'defaultFont' => 'Arial',
+            'defaultMediaType' => 'print',
+            'isFontSubsettingEnabled' => true,
+            'dpi' => 150,
+            'defaultPaperSize' => 'A4',
+            'defaultPaperOrientation' => 'portrait'
         ],
     ],
     'margin' => [
-        'bottom' => 10,
-        'left' => 10,
-        'right' => 10,
-        'top' => 10,
+        'bottom' => 15,
+        'left' => 15,
+        'right' => 15,
+        'top' => 15
     ],
-   'orientation' => 'portrait',
-    'download' => true
+    'orientation' => 'portrait',
+    'download' => true,
+    // Enable CSS styling
+    'encoding' => 'UTF-8',
+    'isHtml5ParserEnabled' => true,
+    'isPhpEnabled' => true,
+    'isRemoteEnabled' => true
 ]);
 
 

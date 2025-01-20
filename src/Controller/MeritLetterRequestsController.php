@@ -33,6 +33,7 @@ class MeritLetterRequestsController extends AppController
     public function pdf($id = null) {
         $this->viewBuilder()->enableAutoLayout(false);
         $meritLetterRequest = $this->MeritLetterRequests->get($id, contain: ['Students', 'Users']);
+
         $this->viewBuilder()->setClassName('CakePdf.Pdf');
         $this->viewBuilder()->setOption('pdfConfig', [
             'orientation' => 'portrait',
@@ -192,6 +193,8 @@ class MeritLetterRequestsController extends AppController
             $this->Flash->error(__('This letter request has not been approved yet.'));
             return $this->redirect(['action' => 'index']);
         }
+        
+
         
         // PDF generation logic will go here
         $this->set(compact('meritLetterRequest'));

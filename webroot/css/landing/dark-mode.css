@@ -1,0 +1,15 @@
+/* Dark Mode Styles */
+[data-bs-theme="dark"] {
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --bg-light: #2d3748;
+    --bg-dark: #1a202c;
+}
+
+[data-bs-theme="dark"] .hero-section {
+    background: var(--secondary-gradient);
+}
+
+[data-bs-theme="dark"] .hero-content {
+    color: var(--text-primary);
+}
