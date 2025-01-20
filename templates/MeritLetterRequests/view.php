@@ -58,15 +58,15 @@ declare(strict_types=1);
                         <div class="px-4">  
                             <div class="row mb-4">
                                 <div class="col-12">
-                                    <p class="mb-0">Recipient Name</p>
-                                    <p class="mb-0">Recipient Address</p>
-                                    <p class="mb-0">Recipient City, Postal Code</p>
-                                    <p class="mb-0">Recipient Country</p>
+                                    <p class="mb-0">Universiti Teknologi MARA</p>
+                                    <p class="mb-0">Jalan Pulau Indah Au10/A, Puncak perdana</p>
+                                    <p class="mb-0">40150,Shah Alam,Selangor Darul Ehsan</p>
+                                    <p class="mb-0">Malaysia</p>
                                 </div>
                             </div>
                         </div>
 
-                        <h4 class="my-0 px-4">MERIT ACHIEVEMENT LETTER</h4>
+                        <h4 class="my-0 px-4">College Approval Letter</h4>
                         <div class="mb-4"></div>
 
                         <div class="px-4">
@@ -83,17 +83,22 @@ declare(strict_types=1);
                                     <td>:</td>
                                     <td><?= h($meritLetterRequest->student_id) ?></td>
                                 </tr>
+                                <tr>
+                                    <td>College</td>
+                                    <td>:</td>
+                                    <td>Kolej Jasmine</td>
+                                </tr>
                             </table>
 
-                            <p>This letter certifies that the above-named student has successfully attained merit recognition. They have demonstrated outstanding achievements and satisfied all the requirements of our academic program.</p>
+                            <p>We are pleased to inform that student <?= h($meritLetterRequest->student->name) ?> has been approved for their college for the next semester. Please bring this letter to your college for further action.</p>
 
-                            <p>We trust that this letter will serve as a formal record of their accomplishment. If you have any questions, please contact us at <em>info@yourdomain.edu</em>.</p>
+                            <p>We trust that this letter will serve as a formal record of their accomplishment. If you have any questions, please contact us at <em>meritPro@yourdomain.edu</em>.</p>
 
                             <p>Sincerely,</p>
                             <p>
-                                <strong>[Signatory Name]</strong><br />
-                                <strong>[Signatory Title]</strong><br />
-                                Your Institution
+                                <strong>Merit Program</strong><br>
+                                <strong>Student Affairs Department</strong><br>
+                                <strong>Universiti Teknologi MARA</strong>
                             </p>
                         </div>
                         

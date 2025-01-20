@@ -3,221 +3,180 @@ declare(strict_types=1);
 
 /**
  * @var \App\View\AppView $this
- * @var \App\View\AppView $this
  * @var \App\Model\Entity\MeritLetterRequest $meritLetterRequest
  */
 ?>
 <style>
-  @page {
-    margin: 0px 0px 0px 0px !important;
-    padding: 0px 0px 0px 0px !important;
-  }
-
-<<<<<<< HEAD
-  
-=======
+    @page {
+        margin: 0px;
+        padding: 0px;
+    }
+    
     body {
-        font-size: 12pt;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
     }
 
-    .a4-container {
-        width: calc(210mm - 40px);
-        min-height: 297mm;
-        border: 1px solid #ccc;
-        padding: 20mm;
-        padding: 40mm 20mm; /* Adjust padding as needed */
-        box-shadow: none;
-    }
-
-    .header {
-        text-align: center;
+    .top-bar {
+        width: 100%;
+        height: 25px;
         margin-bottom: 20px;
     }
 
-    .header h2 {
-        margin-bottom: 5px;
-    }
-
-    .header small {
-        display: block;
-    }
-
-    .recipient-info p {
-        margin-bottom: 2px;
-    }
-
-    .body-text {
-        font-family: 'Times New Roman', serif;
-        text-align: justify;
-    }
-
-    .body-text p {
-        margin-bottom: 10px;
-    }
-
-    .body-text table {
-        width: auto;
-        margin: 20px 0;
-        border-collapse: collapse;
-    }
-
-    .body-text table td {
-        padding: 5px;
-        border: 1px solid #000;
-    }
-
-    .closing {
-        margin-top: 30px;
-    }
-
-    .closing p {
-        margin-bottom: 2px;
-    }
-
-    'pageSize' => 'A4',
-'margin' => [
-'bottom' => 15,
-'left' => 15,
-'right' => 15,
-'top' => 15
-],
-
->>>>>>> 1084095889713c16557af255337130152e10dfc5
-</style>
-
-<div class="row">
-    <div class="col-md-8 a4-container">
-        <div class="card-body text-body-secondary">
-            <?php if ($meritLetterRequest->status === 'approved'): ?>
-                <div class="row text-body-secondary p-4">
-                    <div class="col-12">
-                        
-                        <div class="top">
-                            <div class="one"></div>
-                            <div class="two"></div>
-                        </div>
-
-                        
-                        <div class="d-flex justify-content-end my-4 me-5">
-                            <?php echo $this->Html->image('../img/surat/LogoUiTM.png', ['width' => '100px', 'class' => 'uitm-logo']) ?>
-                        </div>
-
-                        <hr />
-
-                        
-                        <div class="text-end">
-                            <small>Reference: MLR-<?= $meritLetterRequest->id ?></small><br />
-                            <small>Date: <?= $meritLetterRequest->modified->format('d F Y') ?></small>
-                        </div>
-
-                        <div class="mb-4"></div>
-
-                        <div class="px-4">  
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <p class="mb-0">Recipient Name</p>
-                                    <p class="mb-0">Recipient Address</p>
-                                    <p class="mb-0">Recipient City, Postal Code</p>
-                                    <p class="mb-0">Recipient Country</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h4 class="my-0 px-4">MERIT ACHIEVEMENT LETTER</h4>
-                        <div class="mb-4"></div>
-
-                        <div class="px-4">
-                            <p>Dear Sir/Madam,</p>
-
-                            <table width="100%" class="table table-bordered table-sm table_transparent capital">
-                                <tr>
-                                    <td>Student Name</td>
-                                    <td>:</td>
-                                    <td><?= h($meritLetterRequest->student->name) ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Student ID</td>
-                                    <td>:</td>
-                                    <td><?= h($meritLetterRequest->student_id) ?></td>
-                                </tr>
-                            </table>
-
-                            <p>This letter certifies that the above-named student has successfully attained merit recognition. They have demonstrated outstanding achievements and satisfied all the requirements of our academic program.</p>
-
-                            <p>We trust that this letter will serve as a formal record of their accomplishment. If you have any questions, please contact us at <em>info@yourdomain.edu</em>.</p>
-
-                            <p>Sincerely,</p>
-                            <p>
-                                <strong>[Signatory Name]</strong><br />
-                                <strong>[Signatory Title]</strong><br />
-                                Your Institution
-                            </p>
-                        </div>
-                        
-                        <!-- Footer Section -->
-                        <hr />
-                        <div class="text-end my-4 me-5">
-                            <?php echo $this->Html->image('../img/surat/ISO.png', ['width' => '170px']) ?><br />
-                            <?php echo $this->Html->image('../img/surat/uitmdihatiku.png', ['width' => '170px']) ?>
-                        </div>
-                    </div>
-                </div>
-            <?php else: ?>
-                <div class="row">
-                    <div class="col-12">
-                        <p>This Merit Letter Request is not approved yet.</p>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Actions</h5>
-            </div>
-            <div class="card-body">
-                <div class="text-center my-3"></div>
-                <?php echo $this->Html->link(
-                    '<i class="fas fa-file-pdf"></i> Download PDF',
-                    ['action' => 'pdf', $meritLetterRequest->id],
-                    ['class' => 'btn btn-primary w-100', 'escapeTitle' => false]
-                ); ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .capital {
-        text-transform: uppercase;
-    }
-
-    .justify {
-        text-align: justify;
-    }
-
-    .top {
-        width: 102%;
-        margin: auto;
-    }
-
-    .one {
+    .bar-blue {
         width: 72%;
         height: 25px;
         background: #292983;
         float: left;
     }
 
-    .two {
-        margin-left: 15%;
+    .bar-purple {
+        margin-left: 72%;
         height: 25px;
         background: #912890;
     }
 
+    .container {
+        padding: 20px 40px;
+    }
+
+    .header {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
     .uitm-logo {
-        float: right; 
+        width: 100px;
+        margin-bottom: 20px;
+    }
+
+    .reference-section {
+        text-align: right;
+        margin-bottom: 30px;
+        font-size: 12px;
+    }
+
+    .recipient-section {
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 30px 0;
+        text-transform: uppercase;
+    }
+
+    .content {
+        text-align: justify;
+    }
+
+    table.info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        text-transform: uppercase;
+    }
+
+    table.info-table td {
+        padding: 8px;
+        border: 1px solid #000;
+    }
+
+    table.info-table td:first-child {
+        width: 30%;
+        background-color: #f5f5f5;
+    }
+
+    .footer {
+        margin-top: 50px;
+        text-align: right;
+    }
+
+    .footer img {
+        width: 170px;
+        margin: 10px 0;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #000;
+        margin: 20px 0;
     }
 </style>
+
+<div class="top-bar">
+    <div class="bar-blue"></div>
+    <div class="bar-purple"></div>
+</div>
+
+<div class="container">
+    <div class="header">
+        <?= $this->Html->image('surat/LogoUiTM.png', ['fullBase' => true, 'class' => 'uitm-logo']) ?>
+    </div>
+
+    <hr>
+
+    <div class="reference-section">
+        <div>Reference: MLR-<?= $meritLetterRequest->id ?></div>
+        <div>Date: <?= $meritLetterRequest->modified->format('d F Y') ?></div>
+    </div>
+
+    <div class="recipient-section">
+        <p>Universiti Teknologi MARA</p>
+        <p>Jalan Pulau Indah Au10/A, Puncak perdana</p>
+        <p>40150,Shah Alam,Selangor Darul Ehsan</p>
+        <p>Malaysia</p>
+    </div>
+
+    <div class="title">Merit Achievement Letter</div>
+
+    <div class="content">
+        <p>Dear Sir/Madam,</p>
+
+        <table class="info-table">
+            <tr>
+                <td>Student Name</td>
+                <td><?= h($meritLetterRequest->student->name) ?></td>
+            </tr>
+            <tr>
+                <td>Student ID</td>
+                <td><?= h($meritLetterRequest->student_id) ?></td>
+            </tr>
+            <tr>
+                <td>College</td>
+                <td>Kolej Jasmine</td>
+            </tr>
+        </table>
+
+        <p>We are pleased to inform that student <?= h($meritLetterRequest->student->name) ?> has been approved for their college for the next semester. Please bring this letter to your college for further action.</p>
+
+        <p>We trust that this letter will serve as a formal record of their accomplishment. If you have any questions, please contact us at <em>meritPro@yourdomain.edu</em>.</p>
+
+        <p>Sincerely,</p>
+        <p>
+            <strong>Merit Program</strong><br>
+            <strong>Student Affairs Department</strong><br>
+            <strong>Universiti Teknologi MARA</strong>
+        </p>
+    </div>
+
+    <hr>
+
+    <div class="footer">
+        <?= $this->Html->image('surat/ISO.png', ['fullBase' => true]) ?><br>
+        <?= $this->Html->image('surat/uitmdihatiku.png', ['fullBase' => true]) ?>
+    </div>
+</div>
+
+<!-- <div class="col-md-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Actions</h5>
+        </div>
+        <div class="card-body">
+            <div class="text-center my-3"></div>
+
 
