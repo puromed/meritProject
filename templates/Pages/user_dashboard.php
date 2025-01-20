@@ -261,7 +261,7 @@ echo $this->Html->script([
         // Arrays of greetings for different times of the day
         const morningGreetings = [
             "Good morning",
-            "Don't go hollow,",
+            "Don't go hollow",
             "Welcome back",
             "Good day",
             "Frail Limb Nursery"
@@ -333,58 +333,75 @@ echo $this->Html->script([
 </style>
 
 <!-- Chart initialization -->
- <?php $this->Html->script('https://cdn.jsdelivr.net/npm/chart.js', ['block' => true]); ?>
+<?php $this->Html->script('https://cdn.jsdelivr.net/npm/chart.js', ['block' => true]); ?>
 <?php $this->append('script'); ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-   //Monthly Progress Chart
-   new Chart(document.getElementById('monthlyProgressChart'), {
-    type: 'line',
-    data: {
-        labels: <?= json_encode(collection($monthlyProgress)->extract('month')->toArray()) ?>,
-        datasets: [{
-            label: 'Merit Points',
-            data: <?= json_encode(collection($monthlyProgress)->extract('total')->toArray()) ?>,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-            fill: true
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Merit Progress'
-
+    // Monthly Progress Chart
+    const monthlyProgressChart = new Chart(document.getElementById('monthlyProgressChart'), {
+        type: 'line',
+        data: {
+            labels: <?= json_encode(!empty($monthlyProgress) ? 
+                collection($monthlyProgress)->extract('month')->toArray() : 
+                array_map(function($m) { return date('F', mktime(0, 0, 0, $m, 1)); }, range(1, 12))
+            ) ?>,
+            datasets: [{
+                label: 'Merit Points',
+                data: <?= json_encode(!empty($monthlyProgress) ? 
+                    collection($monthlyProgress)->extract('total')->toArray() : 
+                    array_fill(0, 12, 0)
+                ) ?>,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1,
+                fill: true,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Merit Progress'
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
             }
         }
-    }
-   });
+    });
 
-   //Merit Distribution Chart
-   new Chart(document.getElementById('distributionChart'), {
-    type: 'doughnut',
-    data: {
-        labels: <?= json_encode(collection($meritDistribution)->extract('merit_type')->toArray()) ?>,
-        datasets: [{
-            data: <?= json_encode(collection($meritDistribution)->extract('total')->toArray()) ?>,
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)'
-            ]
-        }]
-
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'bottom'
+    // Merit Distribution Chart
+    new Chart(document.getElementById('distributionChart'), {
+        type: 'doughnut',
+        data: {
+            labels: <?= json_encode(collection($meritDistribution)->extract('merit_type')->toArray()) ?>,
+            datasets: [{
+                data: <?= json_encode(collection($meritDistribution)->extract('total')->toArray()) ?>,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
             }
         }
-    }
-   });
+    });
 });
 </script>
 <?php $this->end(); ?>

@@ -221,20 +221,33 @@ public function userDashboard()
             ->group('Merits.merit_type')
             ->all();
 
-        // Get monthly progress
-        $monthlyProgress = $this->fetchTable('StudentMerits')
-            ->find()
-            ->where([
-                'student_id' => $student->student_id,
-                'created >=' => new \DateTime('-6 months')
-            ])
+        // Prepare monthly progress data
+        $monthlyProgress = $this->StudentMerits->find()
             ->select([
-                'month' => 'DATE_FORMAT(StudentMerits.created, "%M %Y")',
+                'month' => 'MONTH(StudentMerits.created)',
                 'total' => 'SUM(StudentMerits.points)'
             ])
-            ->group('month')
-            ->order(['StudentMerits.created' => 'ASC'])
-            ->all();
+            ->where(['StudentMerits.student_id' => $student->student_id])
+            ->group(['MONTH(StudentMerits.created)'])
+            ->order(['MONTH(StudentMerits.created)'])
+            ->all()
+            ->toArray();
+
+        // If no data exists, create empty dataset
+        if (empty($monthlyProgress)) {
+            $monthlyProgress = array_map(function($month) {
+                return [
+                    'month' => date('F', mktime(0, 0, 0, $month, 1)),
+                    'total' => 0
+                ];
+            }, range(1, 12));
+        } else {
+            // Format existing data
+            foreach ($monthlyProgress as &$progress) {
+                $progress['month'] = date('F', mktime(0, 0, 0, $progress['month'], 1));
+                $progress['total'] = (int)$progress['total'];
+            }
+        }
 
         // Get recent merit history
         $recentMerits = $this->fetchTable('StudentMerits')
