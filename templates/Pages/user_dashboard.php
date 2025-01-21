@@ -26,7 +26,7 @@ echo $this->Html->script([
     <div class="sidebar bg-white shadow-sm p-3" style="width: 250px;">
         <div class="d-flex align-items-center mb-4 px-2">
             <i class="fas fa-graduation-cap fs-4 me-2"></i>
-            <span class="fs-4">Student Merit System</span>
+            <span class="fs-6 px-2">Student Merit System</span>
         </div>
 
 
