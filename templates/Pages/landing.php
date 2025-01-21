@@ -77,7 +77,7 @@ $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/anima
     <div class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">Welcome to Emerit</h1>
-            <p class="hero-subtitle">Empowering student achievements through digital merit recognition.</p>
+            <p class="hero-subtitle text-black">Empowering student achievements through digital merit recognition.</p>
             <div class="hero-cta">
                 <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']) ?>" 
                    class="btn btn-light btn-lg me-3">
