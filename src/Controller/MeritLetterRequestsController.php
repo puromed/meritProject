@@ -26,7 +26,15 @@ class MeritLetterRequestsController extends AppController
     {
         $this->Authorization->skipAuthorization();
         $meritLetterRequest = $this->MeritLetterRequests->get($id, contain: ['Students', 'Users']);
-        $this->set('meritLetterRequest', $meritLetterRequest);
+
+        // Fetch total merit points for the student
+        $totalMerits = $this->MeritLetterRequests->Students->StudentMerits->find()
+            ->select([
+                'total' => $this->MeritLetterRequests->Students->StudentMerits->find()->func()->sum('points')
+            ])
+            ->where(['student_id' => $meritLetterRequest->student_id])
+            ->first();
+        $this->set(compact('meritLetterRequest', 'totalMerits'));
     }
 
     // download the merit letter
@@ -34,13 +42,21 @@ class MeritLetterRequestsController extends AppController
         $this->viewBuilder()->enableAutoLayout(false);
         $meritLetterRequest = $this->MeritLetterRequests->get($id, contain: ['Students', 'Users']);
 
+        // Fetch total merit points for the student
+        $totalMerits = $this->MeritLetterRequests->Students->StudentMerits->find()
+            ->select([
+                'total' => $this->MeritLetterRequests->Students->StudentMerits->find()->func()->sum('points')
+            ])
+            ->where(['student_id' => $meritLetterRequest->student_id])
+            ->first();
+
         $this->viewBuilder()->setClassName('CakePdf.Pdf');
         $this->viewBuilder()->setOption('pdfConfig', [
             'orientation' => 'portrait',
             'download' => true,
             'filename' => 'MeritLetter_' . $meritLetterRequest->id . '.pdf'
         ]);
-        $this->set(compact('meritLetterRequest'));
+        $this->set(compact('meritLetterRequest', 'totalMerits'));
     }
 
     public function add()
@@ -188,6 +204,14 @@ class MeritLetterRequestsController extends AppController
         $meritLetterRequest = $this->MeritLetterRequests->get($id, [
             'contain' => ['Students', 'Users']
         ]);
+
+        // Fetch total merit points for the student
+        $totalMerits = $this->MeritLetterRequests->Students->StudentMerits->find()
+            ->select([
+                'total' => $this->MeritLetterRequests->Students->StudentMerits->find()->func()->sum('points')
+            ])
+            ->where(['student_id' => $meritLetterRequest->student_id])
+            ->first();
         
         if ($meritLetterRequest->status !== 'approved') {
             $this->Flash->error(__('This letter request has not been approved yet.'));
@@ -197,7 +221,7 @@ class MeritLetterRequestsController extends AppController
 
         
         // PDF generation logic will go here
-        $this->set(compact('meritLetterRequest'));
+        $this->set(compact('meritLetterRequest', 'totalMerits'));
     }
 
     public function initialize(): void

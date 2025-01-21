@@ -143,7 +143,11 @@ declare(strict_types=1);
             </tr>
             <tr>
                 <td>Student ID</td>
-                <td><?= h($meritLetterRequest->student_id) ?></td>
+                <td><?= h($meritLetterRequest->student->student_id) ?></td>
+            </tr>
+            <tr>
+                <td>Total Merit Points</td>
+                <td><?= number_format($totalMerits->total ?? 0) ?></td>
             </tr>
             <tr>
                 <td>College</td>
